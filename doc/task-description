@@ -1,0 +1,36 @@
+(1) Goal: answer linguistic questions about languages (e.g., word order, case
+      system, tense system) based on IGT data
+
+(2) what kind of linguistic questions?
+    You can choose the questions that interest you. You can use "features"
+    in WALS or other questions.
+
+(3) Approach: use enriched IGT instances to collect statistics
+    (e.g., percentage of sentences with SOV order) and then answer
+    the questions
+         
+(4) Training stage and test stage:
+    You can build a statistical model or use heuristics.
+    For the latter, for instance, you can collect the statistics of
+     different word order (SOV, SVO, etc), and choose the most frequent one.
+
+    In any case, you can use odin2.1 data.
+    Choose the langs for which you have a lot of IGT instances and for which
+     you have gold standard.
+
+
+(5) Evaluation:
+ * compare with gold standard in WALS (or other sources).
+ * measure: accuracy etc.
+
+
+(6) Previous work:
+
+Emily M. Bender, Joshua Crowgey, Michael Wayne Goodman, and Fei Xia, 2014. Learning Grammar Specifications from IGT: A Case Study of Chintang, to appear in Proceedings of the Workshop on the Use of Computational Methods in the Study of Endangered Languages (ComputEL), in conjunction with ACL 2014, June 26, Baltimore, Maryland, USA.  http://acl2014.org/acl2014/W14-22/pdf/W14-2206.pdf
+
+Emily M. Bender, Michael Wayne Goodman, Joshua Crowgey, and Fei Xia, 2013. Towards Creating Precision Grammars from Interlinear Glossed Text: Inferring Large-scale Typological Properties, in Proceedings of the 7th Workshop on Language Technology for Cultural Heritage, Social Sciences, and Humanities (LaTeCH 2013), in conjunction of ACL 2013, Sofia, Bulgaria. http://aclweb.org/anthology//W/W13/W13-2710.pdf
+
+William Lewis and Fei Xia, 2008. Automatically Identifying Computationally Relevant Typological Features, Proceedings of the Third International Joint Conference on Natural Language Processing (IJCNLP-2008), pages 685-690, Hyderabad, India, Jan 7-12, 2008. http://www.aclweb.org/anthology/I/I08/I08-2093.pdf
+
+
+       
