@@ -26,10 +26,11 @@ class SVO:
     # parameters:
     #   debug:  print dependency parse and text for each instance
     #
-    def __init__(self, corpus, debug=False):
+    def __init__(self, corpus, language_code, debug=False):
         self.SVO_order_probabilities = {"SOV": 0.0, "SVO": 0.0, "VSO": 0.0, "VOS": 0.0, "OVS": 0.0, "OSV": 0.0}
         self.instance_count = 0
         self.corpus = corpus
+        self.language_code = language_code
         self.debug = debug
 
     #
@@ -122,6 +123,7 @@ class SVO:
     # print_language_name() - print the name of the language as stored in first instance metadata
     #
     def print_language_name(self):
+        print("Language Code (from file name): " + self.language_code)
         for igt in self.corpus:
             for metadata in igt.metadata[0][0]:
                 if metadata.name == 'subject':
@@ -136,7 +138,7 @@ class SVO:
     def print_order_estimates(self):
         if self.instance_count > 0:
             sorted_probs = sorted(self.SVO_order_probabilities, key=self.SVO_order_probabilities.get, reverse=True)
-            print("\nSOV ORDER PROBABILITIES:  " + str(self.instance_count) + " Instances")
+            print("SOV ORDER PROBABILITIES:  " + str(self.instance_count) + " Instances")
             for order in sorted_probs:
                 prob = self.SVO_order_probabilities[order]/float(self.instance_count)
                 if prob > 0.0:

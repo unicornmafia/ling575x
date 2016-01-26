@@ -21,9 +21,11 @@ odin_corpus = glob.glob(os.path.join(odin_path, "*.xml"))
 
 # begin script here
 for language in odin_corpus:
-    print("Parsing " + os.path.basename(language))
+    filename = os.path.basename(language)
+    language_code = os.path.splitext(filename)[0]
     xc = xigtxml.load(language, mode='full')
-    svo_calc = SVO(xc)
-    svo_calc.print_language_name()
+    svo_calc = SVO(xc, language_code)
     svo_calc.estimate_word_order_for_each_instance()
-    svo_calc.print_order_estimates()
+    if svo_calc.instance_count > 0:
+        svo_calc.print_language_name()
+        svo_calc.print_order_estimates()
