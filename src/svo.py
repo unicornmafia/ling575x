@@ -20,9 +20,17 @@ import xigt.ref as ref
 # SVO:  contains logic for determining word order (WALS feature 81A) for a single language.
 #
 class SVO:
-    def __init__(self):
+    #
+    # constructor
+    #
+    # parameters:
+    #   debug:  print dependency parse and text for each instance
+    #
+    def __init__(self, corpus, debug=False):
         self.SVO_order_probabilities = {"SOV": 0.0, "SVO": 0.0, "VSO": 0.0, "VOS": 0.0, "OVS": 0.0, "OSV": 0.0}
         self.instance_count = 0
+        self.corpus = corpus
+        self.debug = debug
 
     #
     # list_to_word_order()
@@ -62,7 +70,16 @@ class SVO:
             self.instance_count += 1
             word_order = self.list_to_word_order(sorted_list)
             self.SVO_order_probabilities[word_order] += 1.0
-            print("WORD-ORDER: " + word_order)
+            if self.debug:
+                self.debug_log("WORD-ORDER: " + word_order)
+
+    #
+    # log to console if debugging is turned on
+    #
+    def debug_log(self, string):
+        if self.debug:
+            print(string)
+
 
     #
     # estimate_word_order_for_each_instance() - loops through all the igt instances and calculates word order.
@@ -70,8 +87,8 @@ class SVO:
     # parameters:
     #   corpus: a single, parsed, XIGT language file
     #
-    def estimate_word_order_for_each_instance(self, corpus):
-        for igt in corpus:
+    def estimate_word_order_for_each_instance(self):
+        for igt in self.corpus:
             try:
                 # print the phrases
                 phrases = igt["p"]
@@ -83,17 +100,17 @@ class SVO:
                     # print the igt instance name the first time
                     if first_time:
                         first_time = False
-                        print("\nIGT INSTANCE: " + igt.id)
-                        print("TEXT: ")
+                        self.debug_log("\nIGT INSTANCE: " + igt.id)
+                        self.debug_log("TEXT: ")
                         for phrase in phrases:
                             text = igt["n"][phrase.content].text
-                            print("  text: " + text)
-                        print("DEPENDENCY PARSE: ")
+                            self.debug_log("  text: " + text)
+                        self.debug_log("DEPENDENCY PARSE: ")
 
                     word = words[pos.attributes["dep"]]
                     segmentation = word.segmentation
                     word_token = ref.resolve(igt, segmentation)
-                    print("  " + word_token + ": " + pos.text)
+                    self.debug_log("  " + word_token + ": " + pos.text)
                 # add word order estimate
                 if not first_time:
                     self.estimate_word_order_for_instance(igt)
@@ -102,12 +119,28 @@ class SVO:
                 pass
 
     #
+    # print_language_name() - print the name of the language as stored in first instance metadata
+    #
+    def print_language_name(self):
+        for igt in self.corpus:
+            for metadata in igt.metadata[0][0]:
+                if metadata.name == 'subject':
+                    print("Subject: " + metadata.text)
+                    return
+
+
+
+    #
     # print_order_estimates() - prints the list of probabilities of the word orders
     #
     def print_order_estimates(self):
-        sorted_probs = sorted(self.SVO_order_probabilities, key=self.SVO_order_probabilities.get, reverse=True)
-        print("\nSOV ORDER PROBABILITIES:  " + str(self.instance_count) + " Instances")
-        for order in sorted_probs:
-            prob = self.SVO_order_probabilities[order]/float(self.instance_count)
-            if prob > 0.0:
-                print(order + ": " + str(prob))
+        if self.instance_count > 0:
+            sorted_probs = sorted(self.SVO_order_probabilities, key=self.SVO_order_probabilities.get, reverse=True)
+            print("\nSOV ORDER PROBABILITIES:  " + str(self.instance_count) + " Instances")
+            for order in sorted_probs:
+                prob = self.SVO_order_probabilities[order]/float(self.instance_count)
+                if prob > 0.0:
+                    print(order + ": " + str(prob))
+            print("")
+        else:
+            print("NO USABLE INSTANCES FOUND:  SOV order undeterminable from data\n")
