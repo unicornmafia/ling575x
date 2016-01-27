@@ -32,7 +32,8 @@ class SVO:
         self.corpus = corpus
         self.language_code = language_code
         self.debug = debug
-
+        self.sorted_probs = []
+        self.best_guess = "unk"
     #
     # list_to_word_order()
     # parameter:
@@ -118,6 +119,9 @@ class SVO:
             except:
                 # just move on for now.  this will happen a lot when data is not present
                 pass
+        if self.instance_count > 0:
+            self.sorted_probs = sorted(self.SVO_order_probabilities, key=self.SVO_order_probabilities.get, reverse=True)
+            self.best_guess = self.sorted_probs[0]
 
     #
     # print_language_name() - print the name of the language as stored in first instance metadata
@@ -131,15 +135,13 @@ class SVO:
                     return
 
 
-
     #
     # print_order_estimates() - prints the list of probabilities of the word orders
     #
     def print_order_estimates(self):
         if self.instance_count > 0:
-            sorted_probs = sorted(self.SVO_order_probabilities, key=self.SVO_order_probabilities.get, reverse=True)
             print("SOV ORDER PROBABILITIES:  " + str(self.instance_count) + " Instances")
-            for order in sorted_probs:
+            for order in self.sorted_probs:
                 prob = self.SVO_order_probabilities[order]/float(self.instance_count)
                 if prob > 0.0:
                     print(order + ": " + str(prob))
