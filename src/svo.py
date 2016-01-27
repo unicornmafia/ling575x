@@ -34,6 +34,7 @@ class SVO:
         self.debug = debug
         self.sorted_probs = []
         self.best_guess = "unk"
+        self.ndo_threshold = 0.1
     #
     # list_to_word_order()
     # parameter:
@@ -121,7 +122,14 @@ class SVO:
                 pass
         if self.instance_count > 0:
             self.sorted_probs = sorted(self.SVO_order_probabilities, key=self.SVO_order_probabilities.get, reverse=True)
-            self.best_guess = self.sorted_probs[0]
+            if len(self.sorted_probs) == 1:
+                self.best_guess = self.sorted_probs[0]
+            elif len(self.sorted_probs) > 1:  # see if the top one is over the threshold from the secondmost one
+                diff = self.SVO_order_probabilities[self.sorted_probs[0]]-self.SVO_order_probabilities[self.sorted_probs[1]]
+                if diff > self.ndo_threshold:
+                    self.best_guess = self.sorted_probs[0]
+                else:
+                    self.best_guess = "ndo"  # no dominate order because probabilities of first two are too similar
 
     #
     # print_language_name() - print the name of the language as stored in first instance metadata

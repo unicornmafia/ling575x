@@ -43,6 +43,8 @@ for language in odin_corpus:
     filename = os.path.basename(language)
     language_code = os.path.splitext(filename)[0]
     try:
+        # this is just a check to see if we get an error here.
+        # we're going to error out if we can't look up this language/feature in WALS.
         wals_code = wals_dictionary.iso_to_wals[language_code]
         wals_value = wals.feature_dictionary[wals_code]
     except KeyError:  # it wasn't in the dictionary of languages which have reported stats for feature in WALS
