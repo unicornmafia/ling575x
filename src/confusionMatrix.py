@@ -36,7 +36,7 @@ class ConfusionMatrix(dict):
 
     def printMatrix(self):
         retString = "Confusion matrix for the " + self.batchLabel + " data:\n"
-        retString += "row is the truth, column is the system output\n\n"
+        retString += "row is the truth, column is the system output\n\n" + " " * (self.maxlen + 1)
 
 
         for label in self.labels:
