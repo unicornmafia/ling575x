@@ -1,8 +1,3 @@
-Language Code (from file name): sgw
-Subject: Chaha
-SOV ORDER PROBABILITIES:  8 Instances
-SOV: 0.875
-
 Language Code (from file name): ita
 Subject: Italian
 SOV ORDER PROBABILITIES:  29 Instances
@@ -10,26 +5,6 @@ SVO: 0.5862068965517241
 SOV: 0.1724137931034483
 OSV: 0.06896551724137931
 OVS: 0.06896551724137931
-
-Language Code (from file name): tzz
-Subject: Zinacanteco Tzotzil
-SOV ORDER PROBABILITIES:  1 Instances
-VOS: 1.0
-
-Language Code (from file name): xsl-scs
-Subject: Slave
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 1.0
-
-Language Code (from file name): gle
-Subject: Irish
-SOV ORDER PROBABILITIES:  9 Instances
-VSO: 0.8888888888888888
-
-Language Code (from file name): ylr
-Subject: Yalarnnga
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 1.0
 
 Language Code (from file name): mal
 Subject: Malayalam
@@ -41,44 +16,14 @@ Language Code (from file name): gkn
 Subject: Gokana
 SOV ORDER PROBABILITIES:  3 Instances
 
-Language Code (from file name): lld
-Subject: Rhaetoromance
-SOV ORDER PROBABILITIES:  1 Instances
-OVS: 1.0
-
-Language Code (from file name): qub
-Subject: Huallaga Huánuco Quechua
-SOV ORDER PROBABILITIES:  1 Instances
-
 Language Code (from file name): nbl
 Subject: Ndebele
 SOV ORDER PROBABILITIES:  1 Instances
-
-Language Code (from file name): moe
-Subject: Montagnais
-SOV ORDER PROBABILITIES:  5 Instances
-VSO: 0.4
-
-Language Code (from file name): cbs
-Subject: Cashinahua
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): tzb
-Subject: Petalcingo Tzeltal
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
 
 Language Code (from file name): est
 Subject: Estonian
 SOV ORDER PROBABILITIES:  4 Instances
 SVO: 1.0
-
-Language Code (from file name): ind
-Subject: Indonesian
-SOV ORDER PROBABILITIES:  36 Instances
-SVO: 0.6111111111111112
-VSO: 0.027777777777777776
 
 Language Code (from file name): gla
 Subject: Scots Gaelic
@@ -115,25 +60,6 @@ Subject: Noon
 SOV ORDER PROBABILITIES:  1 Instances
 SVO: 1.0
 
-Language Code (from file name): mem
-Subject: Jiwarli
-SOV ORDER PROBABILITIES:  2 Instances
-VSO: 0.5
-
-Language Code (from file name): cic
-Subject: Chickasaw
-SOV ORDER PROBABILITIES:  5 Instances
-SOV: 1.0
-
-Language Code (from file name): sac
-Subject: Meskwaki
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
-
-Language Code (from file name): awn
-Subject: Agaw
-SOV ORDER PROBABILITIES:  1 Instances
-
 Language Code (from file name): nez
 Subject: Nez Perce
 SOV ORDER PROBABILITIES:  4 Instances
@@ -155,39 +81,14 @@ SOV ORDER PROBABILITIES:  2 Instances
 SOV: 0.5
 SVO: 0.5
 
-Language Code (from file name): mni
-Subject: Manipuri
-SOV ORDER PROBABILITIES:  5 Instances
-SOV: 0.8
-
 Language Code (from file name): pan
 Subject: Punjabi
 SOV ORDER PROBABILITIES:  1 Instances
 SOV: 1.0
 
-Language Code (from file name): yrk
-Subject: Nenets
-SOV ORDER PROBABILITIES:  1 Instances
-
-Language Code (from file name): mai
-Subject: Maithili
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 1.0
-
-Language Code (from file name): rml
-Subject: Latvian Romani
-SOV ORDER PROBABILITIES:  3 Instances
-SVO: 0.6666666666666666
-OSV: 0.3333333333333333
-
 Language Code (from file name): cat
 Subject: Catalan
 SOV ORDER PROBABILITIES:  1 Instances
-
-Language Code (from file name): quh
-Subject: Tarata Quechua
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 0.5
 
 Language Code (from file name): bmi
 Subject: Bagirmi
@@ -199,27 +100,10 @@ Subject: Tzotzil
 SOV ORDER PROBABILITIES:  1 Instances
 VOS: 1.0
 
-Language Code (from file name): aae
-Subject: S.Sofia D'Epiro
-SOV ORDER PROBABILITIES:  14 Instances
-SOV: 0.5
-OSV: 0.2857142857142857
-SVO: 0.07142857142857142
-VOS: 0.07142857142857142
-
 Language Code (from file name): ijc
 Subject: Ijo
 SOV ORDER PROBABILITIES:  5 Instances
 SOV: 0.4
-
-Language Code (from file name): und
-Subject: (Undetermined)
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): bhp
-Subject: Bima
-SOV ORDER PROBABILITIES:  1 Instances
 
 Language Code (from file name): aar
 Subject: Qafar
@@ -235,31 +119,15 @@ Subject: Diyari
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 0.5
 
-Language Code (from file name): slk
-Subject: Slovak
-SOV ORDER PROBABILITIES:  5 Instances
-SVO: 0.2
-VSO: 0.2
-
 Language Code (from file name): nep
 Subject: Nepali
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 1.0
 
-Language Code (from file name): tzt-tzj
-Subject: Tzutujil
-SOV ORDER PROBABILITIES:  1 Instances
-VOS: 1.0
-
 Language Code (from file name): kan
 Subject: Kannada
 SOV ORDER PROBABILITIES:  37 Instances
 SOV: 0.8378378378378378
-
-Language Code (from file name): yua
-Subject: Yukatek
-SOV ORDER PROBABILITIES:  2 Instances
-OSV: 1.0
 
 Language Code (from file name): gyd
 Subject: Kayardild
@@ -268,30 +136,6 @@ SOV ORDER PROBABILITIES:  1 Instances
 Language Code (from file name): amp
 Subject: Alamblak
 SOV ORDER PROBABILITIES:  1 Instances
-
-Language Code (from file name): zap
-Subject: Zapotec
-SOV ORDER PROBABILITIES:  10 Instances
-VSO: 0.7
-OVS: 0.2
-SVO: 0.1
-
-Language Code (from file name): bez
-Subject: Hibena
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
-
-Language Code (from file name): aer
-Subject: Mparntwe Arrernte
-SOV ORDER PROBABILITIES:  4 Instances
-SOV: 1.0
-
-Language Code (from file name): lat
-Subject: Latin
-SOV ORDER PROBABILITIES:  28 Instances
-SOV: 0.6428571428571429
-OSV: 0.17857142857142858
-SVO: 0.14285714285714285
 
 Language Code (from file name): tur
 Subject: Turkish
@@ -318,8 +162,8 @@ Language Code (from file name): fin
 Subject: Finnish
 SOV ORDER PROBABILITIES:  115 Instances
 SVO: 0.7217391304347827
-VSO: 0.034782608695652174
 OVS: 0.034782608695652174
+VSO: 0.034782608695652174
 SOV: 0.008695652173913044
 VOS: 0.008695652173913044
 OSV: 0.008695652173913044
@@ -340,11 +184,6 @@ SOV ORDER PROBABILITIES:  3 Instances
 SVO: 0.6666666666666666
 VOS: 0.3333333333333333
 
-Language Code (from file name): esi
-Subject: Iñupiaq
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
 Language Code (from file name): bos
 Subject: Serbian (Srp) + Croatian (Hrv) + Bosnian
 SOV ORDER PROBABILITIES:  1 Instances
@@ -363,48 +202,17 @@ Subject: Newari
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 1.0
 
-Language Code (from file name): quc
-Subject: K'Ichee'
-SOV ORDER PROBABILITIES:  2 Instances
-VSO: 1.0
-
 Language Code (from file name): eng
 Subject: Irish (Gle) + English
 SOV ORDER PROBABILITIES:  7 Instances
 SVO: 0.7142857142857143
 SOV: 0.2857142857142857
 
-Language Code (from file name): ppn
-Subject: Papapana
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): hdn
-Subject: Haida
-SOV ORDER PROBABILITIES:  1 Instances
-OSV: 1.0
-
-Language Code (from file name): smn
-Subject: Inari Sami
-SOV ORDER PROBABILITIES:  5 Instances
-SVO: 1.0
-
-Language Code (from file name): chx
-Subject: Chantyal
-SOV ORDER PROBABILITIES:  4 Instances
-SOV: 0.5
-OVS: 0.5
-
 Language Code (from file name): tha
 Subject: Thai
 SOV ORDER PROBABILITIES:  39 Instances
 SVO: 0.717948717948718
 SOV: 0.07692307692307693
-
-Language Code (from file name): wlm
-Subject: Middle Welsh
-SOV ORDER PROBABILITIES:  1 Instances
-VSO: 1.0
 
 Language Code (from file name): lit
 Subject: Lithuanian
@@ -417,14 +225,6 @@ Language Code (from file name): lbj
 Subject: Ladakhi
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 1.0
-
-Language Code (from file name): ???
-Subject: Old Swedish
-SOV ORDER PROBABILITIES:  13 Instances
-SVO: 0.6153846153846154
-SOV: 0.23076923076923078
-OSV: 0.07692307692307693
-OVS: 0.07692307692307693
 
 Language Code (from file name): bul
 Subject: Bulgarian
@@ -454,28 +254,6 @@ Subject: Chamorro
 SOV ORDER PROBABILITIES:  4 Instances
 SVO: 0.75
 
-Language Code (from file name): akv
-Subject: Akhvakh
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 1.0
-
-Language Code (from file name): shu
-Subject: Salamat
-SOV ORDER PROBABILITIES:  8 Instances
-
-Language Code (from file name): ram
-Subject: Canela
-SOV ORDER PROBABILITIES:  1 Instances
-
-Language Code (from file name): ang
-Subject: Old English
-SOV ORDER PROBABILITIES:  11 Instances
-SOV: 0.18181818181818182
-SVO: 0.18181818181818182
-VSO: 0.18181818181818182
-OSV: 0.09090909090909091
-OVS: 0.09090909090909091
-
 Language Code (from file name): lez
 Subject: Lezgian
 SOV ORDER PROBABILITIES:  1 Instances
@@ -487,21 +265,6 @@ SOV ORDER PROBABILITIES:  10 Instances
 SOV: 0.5
 SVO: 0.1
 
-Language Code (from file name): fuv-fub-fuq-fuh
-Subject: Fula
-SOV ORDER PROBABILITIES:  3 Instances
-SVO: 1.0
-
-Language Code (from file name): ike
-Subject: Inuit
-SOV ORDER PROBABILITIES:  26 Instances
-SOV: 0.38461538461538464
-SVO: 0.15384615384615385
-VSO: 0.07692307692307693
-VOS: 0.07692307692307693
-OSV: 0.07692307692307693
-OVS: 0.07692307692307693
-
 Language Code (from file name): jai
 Subject: Jacalteco Western
 SOV ORDER PROBABILITIES:  1 Instances
@@ -511,22 +274,6 @@ Language Code (from file name): tac
 Subject: Western Tarahumara
 SOV ORDER PROBABILITIES:  1 Instances
 SOV: 1.0
-
-Language Code (from file name): ady
-Subject: Circassian
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): jaa
-Subject: Jamamadi
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): quz
-Subject: Cusco Quechua
-SOV ORDER PROBABILITIES:  17 Instances
-SOV: 0.5294117647058824
-OSV: 0.29411764705882354
 
 Language Code (from file name): dbl
 Subject: Dyirbal
@@ -541,12 +288,6 @@ SVO: 0.2727272727272727
 OSV: 0.18181818181818182
 VSO: 0.13636363636363635
 OVS: 0.045454545454545456
-
-Language Code (from file name): fuc
-Subject: Pulaar
-SOV ORDER PROBABILITIES:  3 Instances
-SVO: 0.6666666666666666
-VSO: 0.3333333333333333
 
 Language Code (from file name): nbx
 Subject: Wangkumara
@@ -564,26 +305,6 @@ Subject: Yingkarta
 SOV ORDER PROBABILITIES:  1 Instances
 OSV: 1.0
 
-Language Code (from file name): hat
-Subject: Haitian
-SOV ORDER PROBABILITIES:  2 Instances
-SVO: 1.0
-
-Language Code (from file name): tzm
-Subject: Berber
-SOV ORDER PROBABILITIES:  3 Instances
-VSO: 0.6666666666666666
-
-Language Code (from file name): deu
-Subject: German
-SOV ORDER PROBABILITIES:  267 Instances
-SVO: 0.34831460674157305
-SOV: 0.21722846441947566
-VSO: 0.0749063670411985
-OVS: 0.0749063670411985
-OSV: 0.0449438202247191
-VOS: 0.00749063670411985
-
 Language Code (from file name): abt
 Subject: Ambulas
 SOV ORDER PROBABILITIES:  2 Instances
@@ -598,16 +319,6 @@ Subject: Mokilese
 SOV ORDER PROBABILITIES:  2 Instances
 SVO: 1.0
 
-Language Code (from file name): sas
-Subject: Sasak
-SOV ORDER PROBABILITIES:  2 Instances
-SVO: 1.0
-
-Language Code (from file name): kqr
-Subject: Kimaragang
-SOV ORDER PROBABILITIES:  2 Instances
-VSO: 1.0
-
 Language Code (from file name): kna
 Subject: Kanakuru
 SOV ORDER PROBABILITIES:  3 Instances
@@ -616,15 +327,10 @@ SVO: 1.0
 Language Code (from file name): arn
 Subject: Mapudungun
 SOV ORDER PROBABILITIES:  10 Instances
-VSO: 0.3
 OSV: 0.3
+VSO: 0.3
 SVO: 0.2
 OVS: 0.2
-
-Language Code (from file name): pjt
-Subject: Pitjantjatjara
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 1.0
 
 Language Code (from file name): kor
 Subject: Korean
@@ -639,11 +345,6 @@ Language Code (from file name): grt
 Subject: Garo
 SOV ORDER PROBABILITIES:  1 Instances
 OSV: 1.0
-
-Language Code (from file name): duu
-Subject: Dulong
-SOV ORDER PROBABILITIES:  5 Instances
-SOV: 1.0
 
 Language Code (from file name): kun
 Subject: Kunama
@@ -663,12 +364,6 @@ Language Code (from file name): sot
 Subject: Sesotho
 SOV ORDER PROBABILITIES:  11 Instances
 SVO: 1.0
-
-Language Code (from file name): afr
-Subject: Afrikaans
-SOV ORDER PROBABILITIES:  15 Instances
-SVO: 0.2
-SOV: 0.13333333333333333
 
 Language Code (from file name): van
 Subject: Walman
@@ -690,23 +385,6 @@ Subject: Khalka Mongolian
 SOV ORDER PROBABILITIES:  1 Instances
 SOV: 1.0
 
-Language Code (from file name): lbe
-Subject: Lak
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 1.0
-
-Language Code (from file name): srp-hrv
-Subject: Serbocroatian
-SOV ORDER PROBABILITIES:  42 Instances
-SOV: 0.5952380952380952
-SVO: 0.30952380952380953
-VOS: 0.047619047619047616
-OSV: 0.047619047619047616
-
-Language Code (from file name): onr-oin-aun
-Subject: One
-SOV ORDER PROBABILITIES:  1 Instances
-
 Language Code (from file name): pma
 Subject: Paamese
 SOV ORDER PROBABILITIES:  1 Instances
@@ -716,31 +394,10 @@ Language Code (from file name): amh
 Subject: Amharic
 SOV ORDER PROBABILITIES:  1 Instances
 
-Language Code (from file name): mhr-mrj
-Subject: Mari
-SOV ORDER PROBABILITIES:  1 Instances
-OSV: 1.0
-
-Language Code (from file name): jai-jac
-Subject: Jacaltec
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 0.5
-
-Language Code (from file name): bnn
-Subject: Bunun
-SOV ORDER PROBABILITIES:  2 Instances
-SVO: 0.5
-VSO: 0.5
-
 Language Code (from file name): ven
 Subject: Venda
 SOV ORDER PROBABILITIES:  4 Instances
 SVO: 1.0
-
-Language Code (from file name): lev
-Subject: Western Pantar
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
 
 Language Code (from file name): ito
 Subject: Itonama
@@ -752,23 +409,12 @@ Subject: Kikuyu
 SOV ORDER PROBABILITIES:  3 Instances
 SVO: 1.0
 
-Language Code (from file name): yaz
-Subject: Lokaa
-SOV ORDER PROBABILITIES:  13 Instances
-SVO: 0.7692307692307693
-SOV: 0.23076923076923078
-
 Language Code (from file name): pes
 Subject: Persian
 SOV ORDER PROBABILITIES:  21 Instances
 SOV: 0.42857142857142855
 OVS: 0.38095238095238093
 OSV: 0.047619047619047616
-
-Language Code (from file name): sga
-Subject: Old Irish
-SOV ORDER PROBABILITIES:  4 Instances
-VSO: 1.0
 
 Language Code (from file name): fon
 Subject: Fongbe
@@ -785,8 +431,8 @@ Language Code (from file name): nob
 Subject: Norwegian
 SOV ORDER PROBABILITIES:  195 Instances
 SVO: 0.764102564102564
-VSO: 0.041025641025641026
 OVS: 0.041025641025641026
+VSO: 0.041025641025641026
 OSV: 0.020512820512820513
 SOV: 0.005128205128205128
 
@@ -809,11 +455,6 @@ Subject: Akan
 SOV ORDER PROBABILITIES:  3 Instances
 SVO: 1.0
 
-Language Code (from file name): kjl-kip-kgj-kif
-Subject: Kham
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
 Language Code (from file name): xsr
 Subject: Sherpa
 SOV ORDER PROBABILITIES:  1 Instances
@@ -824,31 +465,10 @@ Subject: Mising
 SOV ORDER PROBABILITIES:  1 Instances
 SOV: 1.0
 
-Language Code (from file name): tam
-Subject: Tamil
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 0.3333333333333333
-
-Language Code (from file name): kdd
-Subject: Yankunytjatjara
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 0.6666666666666666
-
-Language Code (from file name): abq
-Subject: Abaza
-SOV ORDER PROBABILITIES:  4 Instances
-SOV: 1.0
-
 Language Code (from file name): hch
 Subject: Huichol
 SOV ORDER PROBABILITIES:  4 Instances
 SOV: 0.25
-
-Language Code (from file name): cim
-Subject: Cimbrian
-SOV ORDER PROBABILITIES:  5 Instances
-SVO: 0.6
-OVS: 0.4
 
 Language Code (from file name): yor
 Subject: Yoruba
@@ -856,16 +476,6 @@ SOV ORDER PROBABILITIES:  7 Instances
 SVO: 0.7142857142857143
 VOS: 0.14285714285714285
 OSV: 0.14285714285714285
-
-Language Code (from file name): ckb
-Subject: Kurdish
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 1.0
-
-Language Code (from file name): owl
-Subject: Old Welsh
-SOV ORDER PROBABILITIES:  1 Instances
-VSO: 1.0
 
 Language Code (from file name): njb
 Subject: Nocte
@@ -889,11 +499,6 @@ SVO: 0.39285714285714285
 VOS: 0.10714285714285714
 VSO: 0.07142857142857142
 
-Language Code (from file name): bem
-Subject: Bemba
-SOV ORDER PROBABILITIES:  6 Instances
-SVO: 0.3333333333333333
-
 Language Code (from file name): ewe
 Subject: Ewe
 SOV ORDER PROBABILITIES:  1 Instances
@@ -904,19 +509,9 @@ Subject: Diegueño
 SOV ORDER PROBABILITIES:  1 Instances
 OSV: 1.0
 
-Language Code (from file name): duu-raw
-Subject: Dulong
-SOV ORDER PROBABILITIES:  4 Instances
-SOV: 1.0
-
 Language Code (from file name): slv
 Subject: Slovene
 SOV ORDER PROBABILITIES:  4 Instances
-
-Language Code (from file name): kjl
-Subject: Kham
-SOV ORDER PROBABILITIES:  5 Instances
-SOV: 1.0
 
 Language Code (from file name): fra
 Subject: French
@@ -930,19 +525,6 @@ Subject: Pitta Pitta
 SOV ORDER PROBABILITIES:  4 Instances
 SVO: 1.0
 
-Language Code (from file name): pbu
-Subject: Pashto
-SOV ORDER PROBABILITIES:  2 Instances
-
-Language Code (from file name): blu
-Subject: Hmong
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
-
-Language Code (from file name): non
-Subject: Old Icelandic
-SOV ORDER PROBABILITIES:  1 Instances
-
 Language Code (from file name): hix
 Subject: Hixkaryana
 SOV ORDER PROBABILITIES:  8 Instances
@@ -954,37 +536,9 @@ Subject: Yukulta
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 1.0
 
-Language Code (from file name): pdc
-Subject: Pennsylvania German
-SOV ORDER PROBABILITIES:  4 Instances
-SOV: 0.25
-SVO: 0.25
-
-Language Code (from file name): pej
-Subject: Northern Pomo
-SOV ORDER PROBABILITIES:  1 Instances
-OSV: 1.0
-
-Language Code (from file name): grc
-Subject: Ancient Greek
-SOV ORDER PROBABILITIES:  6 Instances
-SOV: 0.3333333333333333
-SVO: 0.16666666666666666
-VOS: 0.16666666666666666
-
 Language Code (from file name): apu
 Subject: Apurinã
 SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
-
-Language Code (from file name): fri
-Subject: Frisian
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 0.5
-
-Language Code (from file name): xsy
-Subject: Saisiyat
-SOV ORDER PROBABILITIES:  2 Instances
 SVO: 1.0
 
 Language Code (from file name): hun
@@ -995,21 +549,10 @@ SOV: 0.2345679012345679
 VSO: 0.024691358024691357
 OSV: 0.012345679012345678
 
-Language Code (from file name): agj
-Subject: Argobba
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
 Language Code (from file name): mky
 Subject: Taba
 SOV ORDER PROBABILITIES:  1 Instances
 SVO: 1.0
-
-Language Code (from file name): nan
-Subject: Taiwanese
-SOV ORDER PROBABILITIES:  6 Instances
-SOV: 0.3333333333333333
-SVO: 0.3333333333333333
 
 Language Code (from file name): wmb
 Subject: Wambaya
@@ -1024,16 +567,6 @@ SOV: 0.20754716981132076
 VOS: 0.03773584905660377
 OSV: 0.03773584905660377
 
-Language Code (from file name): spa
-Subject: Spanish
-SOV ORDER PROBABILITIES:  51 Instances
-SVO: 0.3137254901960784
-OVS: 0.13725490196078433
-SOV: 0.058823529411764705
-VOS: 0.0392156862745098
-OSV: 0.0392156862745098
-VSO: 0.0196078431372549
-
 Language Code (from file name): agb
 Subject: Igbo
 SOV ORDER PROBABILITIES:  1 Instances
@@ -1044,35 +577,6 @@ Subject: Kinyarwanda
 SOV ORDER PROBABILITIES:  19 Instances
 SVO: 0.8947368421052632
 
-Language Code (from file name): jmc
-Subject: Kichaga
-SOV ORDER PROBABILITIES:  1 Instances
-VSO: 1.0
-
-Language Code (from file name): kal
-Subject: Greenlandic
-SOV ORDER PROBABILITIES:  12 Instances
-SOV: 0.75
-
-Language Code (from file name): osp
-Subject: Old Spanish
-SOV ORDER PROBABILITIES:  9 Instances
-SVO: 0.3333333333333333
-SOV: 0.2222222222222222
-VSO: 0.1111111111111111
-VOS: 0.1111111111111111
-OVS: 0.1111111111111111
-
-Language Code (from file name): src
-Subject: Sardinian
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): goh
-Subject: Old High German
-SOV ORDER PROBABILITIES:  2 Instances
-OVS: 1.0
-
 Language Code (from file name): miq
 Subject: Miskitu
 SOV ORDER PROBABILITIES:  1 Instances
@@ -1082,12 +586,6 @@ Language Code (from file name): qvi
 Subject: Imbabura Quechua
 SOV ORDER PROBABILITIES:  1 Instances
 SOV: 1.0
-
-Language Code (from file name): thk
-Subject: Kitharaka
-SOV ORDER PROBABILITIES:  9 Instances
-SVO: 0.5555555555555556
-OSV: 0.2222222222222222
 
 Language Code (from file name): som
 Subject: Somali
@@ -1103,29 +601,13 @@ Subject: Sinhala
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 1.0
 
-Language Code (from file name): jam
-Subject: Jamaican Creole
-SOV ORDER PROBABILITIES:  4 Instances
-SOV: 0.5
-SVO: 0.5
-
-Language Code (from file name): nyn-cgg
-Subject: Nkore-Kiga
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
 Language Code (from file name): heb
 Subject: Hebrew
 SOV ORDER PROBABILITIES:  19 Instances
 SVO: 0.42105263157894735
 SOV: 0.10526315789473684
-VSO: 0.05263157894736842
 VOS: 0.05263157894736842
-
-Language Code (from file name): esu-ess
-Subject: Yup'Ik
-SOV ORDER PROBABILITIES:  4 Instances
-SVO: 1.0
+VSO: 0.05263157894736842
 
 Language Code (from file name): hin
 Subject: Hindi
@@ -1133,27 +615,6 @@ SOV ORDER PROBABILITIES:  43 Instances
 SOV: 0.6511627906976745
 OSV: 0.11627906976744186
 VSO: 0.06976744186046512
-
-Language Code (from file name): ruf
-Subject: Luguru
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
-
-Language Code (from file name): div
-Subject: Dhivehi
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 1.0
-
-Language Code (from file name): tkr
-Subject: Tsakhur
-SOV ORDER PROBABILITIES:  4 Instances
-SOV: 1.0
-
-Language Code (from file name): enm
-Subject: Early Middle English
-SOV ORDER PROBABILITIES:  3 Instances
-SVO: 0.6666666666666666
-SOV: 0.3333333333333333
 
 Language Code (from file name): ddj
 Subject: Djaru
@@ -1166,11 +627,6 @@ Subject: Vallader
 SOV ORDER PROBABILITIES:  15 Instances
 OVS: 0.4
 SVO: 0.3333333333333333
-
-Language Code (from file name): wba
-Subject: Warao
-SOV ORDER PROBABILITIES:  1 Instances
-OSV: 1.0
 
 Language Code (from file name): wra
 Subject: Barupu
@@ -1186,32 +642,15 @@ Language Code (from file name): ood
 Subject: O'Odham
 SOV ORDER PROBABILITIES:  1 Instances
 
-Language Code (from file name): bar
-Subject: Bavarian
-SOV ORDER PROBABILITIES:  11 Instances
-SVO: 0.5454545454545454
-VSO: 0.18181818181818182
-OSV: 0.18181818181818182
-OVS: 0.09090909090909091
-
 Language Code (from file name): kay
 Subject: Kamayurá
 SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): sgh
-Subject: Rosani
-SOV ORDER PROBABILITIES:  2 Instances
 SOV: 1.0
 
 Language Code (from file name): guw
 Subject: Gungbe
 SOV ORDER PROBABILITIES:  1 Instances
 SVO: 1.0
-
-Language Code (from file name): ojg-otw
-Subject: Ojibwe
-SOV ORDER PROBABILITIES:  1 Instances
 
 Language Code (from file name): cmn
 Subject: Mandarin
@@ -1224,22 +663,6 @@ SOV: 0.01694915254237288
 Language Code (from file name): jig
 Subject: Jingulu
 SOV ORDER PROBABILITIES:  1 Instances
-
-Language Code (from file name): dum
-Subject: Middle Dutch
-SOV ORDER PROBABILITIES:  4 Instances
-OSV: 0.5
-SOV: 0.25
-
-Language Code (from file name): pbu-pst
-Subject: Pashto
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): mly
-Subject: Malay
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
 
 Language Code (from file name): nup
 Subject: Nupe
@@ -1262,24 +685,6 @@ SOV ORDER PROBABILITIES:  18 Instances
 SVO: 0.3333333333333333
 OVS: 0.2222222222222222
 
-Language Code (from file name): tzj-tzt
-Subject: Tzutujil
-SOV ORDER PROBABILITIES:  1 Instances
-VOS: 1.0
-
-Language Code (from file name): ztu
-Subject: San Dionicio Ocotepec Zapotec
-SOV ORDER PROBABILITIES:  36 Instances
-VSO: 0.8333333333333334
-SVO: 0.05555555555555555
-VOS: 0.05555555555555555
-OVS: 0.05555555555555555
-
-Language Code (from file name): otw
-Subject: Ojibwa
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
-
 Language Code (from file name): cym
 Subject: Welsh
 SOV ORDER PROBABILITIES:  12 Instances
@@ -1291,12 +696,6 @@ Subject: Kutenai
 SOV ORDER PROBABILITIES:  2 Instances
 VOS: 0.5
 OSV: 0.5
-
-Language Code (from file name): ple
-Subject: Palu'E
-SOV ORDER PROBABILITIES:  3 Instances
-OSV: 0.6666666666666666
-SVO: 0.3333333333333333
 
 Language Code (from file name): isl
 Subject: Icelandic
@@ -1310,11 +709,6 @@ Language Code (from file name): bin
 Subject: Edo
 SOV ORDER PROBABILITIES:  12 Instances
 SVO: 0.6666666666666666
-
-Language Code (from file name): ojp
-Subject: Old Japanese
-SOV ORDER PROBABILITIES:  4 Instances
-VSO: 0.5
 
 Language Code (from file name): lec
 Subject: Leko
@@ -1337,11 +731,6 @@ SOV ORDER PROBABILITIES:  23 Instances
 SOV: 0.4782608695652174
 OSV: 0.13043478260869565
 
-Language Code (from file name): gsg
-Subject: German Sign Language
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
 Language Code (from file name): mkd
 Subject: Macedonian
 SOV ORDER PROBABILITIES:  4 Instances
@@ -1354,49 +743,18 @@ SOV ORDER PROBABILITIES:  59 Instances
 SOV: 0.3389830508474576
 SVO: 0.3220338983050847
 OVS: 0.03389830508474576
-VSO: 0.01694915254237288
 OSV: 0.01694915254237288
-
-Language Code (from file name): swe
-Subject: Swedish
-SOV ORDER PROBABILITIES:  19 Instances
-SVO: 0.47368421052631576
-VSO: 0.15789473684210525
-SOV: 0.10526315789473684
-OVS: 0.10526315789473684
-VOS: 0.05263157894736842
+VSO: 0.01694915254237288
 
 Language Code (from file name): wnu
 Subject: Usan
 SOV ORDER PROBABILITIES:  1 Instances
 SOV: 1.0
 
-Language Code (from file name): hye
-Subject: Armenian
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): quz-quh-quy-qug-qvc-qwh
-Subject: Quechua
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 0.6666666666666666
-SVO: 0.3333333333333333
-
 Language Code (from file name): nia
 Subject: Nias
 SOV ORDER PROBABILITIES:  1 Instances
 VOS: 1.0
-
-Language Code (from file name): mlu
-Subject: Toqabaqita
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
-
-Language Code (from file name): esu
-Subject: Yupik
-SOV ORDER PROBABILITIES:  5 Instances
-SOV: 0.4
-SVO: 0.4
 
 Language Code (from file name): for
 Subject: Fore
@@ -1409,27 +767,12 @@ Subject: Ostyak
 SOV ORDER PROBABILITIES:  6 Instances
 SOV: 1.0
 
-Language Code (from file name): que
-Subject: Quechua
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 1.0
-
-Language Code (from file name): run
-Subject: Kirundi
-SOV ORDER PROBABILITIES:  2 Instances
-SVO: 1.0
-
 Language Code (from file name): nya
 Subject: Chichewa
 SOV ORDER PROBABILITIES:  27 Instances
 SVO: 0.7037037037037037
 SOV: 0.037037037037037035
 VOS: 0.037037037037037035
-
-Language Code (from file name): str
-Subject: Lummi
-SOV ORDER PROBABILITIES:  1 Instances
-VSO: 1.0
 
 Language Code (from file name): urb
 Subject: Urubú
@@ -1442,31 +785,16 @@ SOV ORDER PROBABILITIES:  6 Instances
 SOV: 0.6666666666666666
 SVO: 0.3333333333333333
 
-Language Code (from file name): niv
-Subject: Nivkh
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 0.6666666666666666
-
-Language Code (from file name): swa
-Subject: Swahili
-SOV ORDER PROBABILITIES:  4 Instances
-SVO: 0.25
-
 Language Code (from file name): ukr
 Subject: Ukrainian
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 1.0
-
-Language Code (from file name): nec
-Subject: Nedebang
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 1.0
 
 Language Code (from file name): crk
 Subject: Plains Cree
 SOV ORDER PROBABILITIES:  4 Instances
-VSO: 0.5
 VOS: 0.5
+VSO: 0.5
 
 Language Code (from file name): lkt
 Subject: Lakhota
@@ -1477,20 +805,10 @@ Subject: Kalkutungu
 SOV ORDER PROBABILITIES:  3 Instances
 OSV: 0.3333333333333333
 
-Language Code (from file name): lbz
-Subject: Lardil
-SOV ORDER PROBABILITIES:  3 Instances
-SVO: 0.6666666666666666
-
 Language Code (from file name): gug
 Subject: Guarani
 SOV ORDER PROBABILITIES:  1 Instances
 SVO: 1.0
-
-Language Code (from file name): nhe-nhw-nch-ngu-nhs-azz
-Subject: Nahuatl
-SOV ORDER PROBABILITIES:  2 Instances
-SVO: 0.5
 
 Language Code (from file name): nus
 Subject: Ji
@@ -1503,20 +821,10 @@ SOV ORDER PROBABILITIES:  12 Instances
 SVO: 0.5833333333333334
 SOV: 0.25
 
-Language Code (from file name): cmg
-Subject: Classical Mongolian
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
 Language Code (from file name): trv
 Subject: Seediq
 SOV ORDER PROBABILITIES:  4 Instances
 VOS: 1.0
-
-Language Code (from file name): lug
-Subject: Luganda
-SOV ORDER PROBABILITIES:  8 Instances
-SVO: 0.625
 
 Language Code (from file name): mnr
 Subject: Mono
@@ -1528,13 +836,6 @@ Subject: Chinsenga
 SOV ORDER PROBABILITIES:  1 Instances
 SVO: 1.0
 
-Language Code (from file name): fro
-Subject: Old French
-SOV ORDER PROBABILITIES:  3 Instances
-VSO: 0.3333333333333333
-VOS: 0.3333333333333333
-OVS: 0.3333333333333333
-
 Language Code (from file name): vie
 Subject: Vietnamese
 SOV ORDER PROBABILITIES:  10 Instances
@@ -1542,21 +843,10 @@ SOV: 0.4
 SVO: 0.4
 VSO: 0.2
 
-Language Code (from file name): pbt
-Subject: Pashto
-SOV ORDER PROBABILITIES:  7 Instances
-SOV: 1.0
-
 Language Code (from file name): lui
 Subject: Luiseno
 SOV ORDER PROBABILITIES:  4 Instances
 SOV: 1.0
-
-Language Code (from file name): san
-Subject: Sanskrit
-SOV ORDER PROBABILITIES:  3 Instances
-SOV: 0.3333333333333333
-SVO: 0.3333333333333333
 
 Language Code (from file name): kjs
 Subject: Kewa
@@ -1567,10 +857,6 @@ Language Code (from file name): yue
 Subject: Cantonese
 SOV ORDER PROBABILITIES:  4 Instances
 SVO: 0.75
-
-Language Code (from file name): ajp
-Subject: Palestinian Arabic
-SOV ORDER PROBABILITIES:  1 Instances
 
 Language Code (from file name): kmn
 Subject: Autuw
@@ -1602,26 +888,6 @@ SOV ORDER PROBABILITIES:  9 Instances
 VSO: 0.7777777777777778
 VOS: 0.1111111111111111
 
-Language Code (from file name): srp
-Subject: Serbian
-SOV ORDER PROBABILITIES:  4 Instances
-SVO: 0.75
-SOV: 0.25
-
-Language Code (from file name): pei
-Subject: Chichimeco Jonaz
-SOV ORDER PROBABILITIES:  1 Instances
-
-Language Code (from file name): btg
-Subject: Bete
-SOV ORDER PROBABILITIES:  1 Instances
-SVO: 1.0
-
-Language Code (from file name): tew
-Subject: Tewa
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 1.0
-
 Language Code (from file name): zul
 Subject: Zulu
 SOV ORDER PROBABILITIES:  2 Instances
@@ -1644,42 +910,10 @@ Subject: Skou
 SOV ORDER PROBABILITIES:  1 Instances
 SOV: 1.0
 
-Language Code (from file name): kiu
-Subject: Zazaki
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 1.0
-
-Language Code (from file name): lzz
-Subject: Laz
-SOV ORDER PROBABILITIES:  2 Instances
-SOV: 0.5
-SVO: 0.5
-
-Language Code (from file name): nnb
-Subject: Kinande
-SOV ORDER PROBABILITIES:  8 Instances
-SVO: 0.25
-OSV: 0.25
-
 Language Code (from file name): ljp
 Subject: Lampung
 SOV ORDER PROBABILITIES:  1 Instances
 SVO: 1.0
-
-Language Code (from file name): lns
-Subject: Lamnso'
-SOV ORDER PROBABILITIES:  3 Instances
-SVO: 1.0
-
-Language Code (from file name): ikt
-Subject: Central Arctic Inuktitut
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): bxr
-Subject: Buryat
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
 
 Language Code (from file name): peb
 Subject: Eastern Pomo
@@ -1692,10 +926,6 @@ SOV ORDER PROBABILITIES:  24 Instances
 SVO: 0.625
 OSV: 0.20833333333333334
 VSO: 0.041666666666666664
-
-Language Code (from file name): gbz
-Subject: Dari
-SOV ORDER PROBABILITIES:  8 Instances
 
 Language Code (from file name): mar
 Subject: Marathi
@@ -1711,22 +941,11 @@ Subject: Egyptian Arabic
 SOV ORDER PROBABILITIES:  1 Instances
 VOS: 1.0
 
-Language Code (from file name): cng
-Subject: Qiang
-SOV ORDER PROBABILITIES:  9 Instances
-SOV: 0.2222222222222222
-
 Language Code (from file name): noo
 Subject: Nootka
 SOV ORDER PROBABILITIES:  3 Instances
 VSO: 0.6666666666666666
 VOS: 0.3333333333333333
-
-Language Code (from file name): ydd
-Subject: Yiddish
-SOV ORDER PROBABILITIES:  6 Instances
-SVO: 0.6666666666666666
-VSO: 0.16666666666666666
 
 Language Code (from file name): lef
 Subject: Lelemi
@@ -1738,25 +957,11 @@ Subject: Yidiny
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 1.0
 
-Language Code (from file name): cji
-Subject: Chamalin
-SOV ORDER PROBABILITIES:  1 Instances
-SOV: 1.0
-
-Language Code (from file name): nhe
-Subject: Huautla Nahuatl
-SOV ORDER PROBABILITIES:  2 Instances
-SVO: 0.5
-
 Language Code (from file name): plt
 Subject: Malagasy
 SOV ORDER PROBABILITIES:  41 Instances
 VOS: 0.6585365853658537
 VSO: 0.1951219512195122
-
-Language Code (from file name): myv-mdf
-Subject: Mordvinian
-SOV ORDER PROBABILITIES:  1 Instances
 
 Language Code (from file name): moh
 Subject: Mohawk
@@ -1769,4 +974,24 @@ Subject: Avar
 SOV ORDER PROBABILITIES:  2 Instances
 SOV: 0.5
 SVO: 0.5
+
+Num Languages Determined: 
+175
+
+Comparing results with gold standard from WALS:
+Num Languages Compared: 175
+Confusion matrix for the Generated and WALS data:
+row is the truth, column is the system output
+
+    SOV SVO VSO VOS OVS OSV ndo 
+SOV 47  2   0   0   0   7   11 
+SVO 5   50  1   1   1   1   12 
+VSO 1   1   5   1   0   0   1  
+VOS 0   0   0   4   0   0   0  
+OVS 0   0   0   0   1   0   0  
+OSV 0   0   0   0   0   0   0  
+ndo 3   12  1   0   0   1   6  
+
+Generated and WALS accuracy=0.6457142857142857
+
 
