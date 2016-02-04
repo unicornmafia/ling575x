@@ -47,7 +47,7 @@ class SVO:
         self.svo_best_guess = "unk"
         self.ov_best_guess = "unk"
         self.sv_best_guess = "unk"
-        self.ndo_threshold = 0.15
+        self.ndo_threshold = 0.25
         self.distribute_unknown_probabilities = False
 
     #
@@ -150,6 +150,9 @@ class SVO:
         if self.debug:
             print(string)
 
+    #
+    # generate a best guess of the correct word order.
+    #
     def generate_best_guess(self, probabilities):
         best_guess = "unk"
         sorted_probs = sorted(probabilities, key=probabilities.get, reverse=True)

@@ -14,7 +14,7 @@
 from xigt.codecs import xigtxml
 from svo import SVO
 from wals import WalsFeature, WalsLanguageCodes
-from confusionMatrix import ConfusionMatrix
+from svoReporting import SVOReporting
 import glob
 import os
 
@@ -38,6 +38,10 @@ svo_feature_dictionary = {}
 sv_feature_dictionary = {}
 ov_feature_dictionary = {}
 
+svo_feature_num_instances_dictionary = {}
+sv_feature_num_instances_dictionary = {}
+ov_feature_num_instances_dictionary = {}
+
 num_languages = len(odin_corpus)
 i = 0
 num_languages_determined = 0
@@ -46,25 +50,6 @@ ndo_languages = []
 svo_possibilities = ["SOV", "SVO", "VSO", "VOS", "OVS", "OSV", "ndo"]  # ndo is "no dominant order"
 sv_possibilities = ["SV", "VS", "ndo"]  # ndo is "no dominant order"
 ov_possibilities = ["OV", "VO", "ndo"]  # ndo is "no dominant order"
-
-
-def print_order_confusion_matrix_for_feature(feature_dictionary, wals_gold_standard, possibilities, title):
-    # build and print a confusion matrix for svo
-    print("\nComparing results with gold standard from WALS for " + title + ":")
-    confusion_matrix = ConfusionMatrix(title, possibilities)
-    num_reported = 0
-    for code in feature_dictionary:
-        our_value = feature_dictionary[code]
-        try:
-            wals_code = wals_dictionary.iso_to_wals[code]
-            wals_value = wals_gold_standard.feature_dictionary[wals_code]
-            confusion_matrix.addLabel(wals_value, our_value)
-            num_reported += 1
-        except KeyError:
-            print("No matching SVO WALS data for language " + code)
-    print("Num Languages Compared: " + str(num_reported))
-    if num_reported > 0:
-        print(confusion_matrix.printMatrix())
 
 
 # START REALLY DOING STUFF HERE
@@ -90,26 +75,38 @@ for language in odin_corpus:
     svo_calc = SVO(xc, language_code)
     svo_calc.estimate_word_order_for_each_instance()
     if svo_calc.total_instance_count > 0:
-        if svo_calc.svo_sorted_probs is not None:
+        if svo_calc.svo_best_guess != "unk":
             svo_feature_dictionary[language_code] = svo_calc.svo_best_guess
-        if svo_calc.sv_sorted_probs is not None:
+            svo_feature_num_instances_dictionary[language_code] = svo_calc.svo_instance_count
+        if svo_calc.sv_best_guess != "unk":
             sv_feature_dictionary[language_code] = svo_calc.sv_best_guess
-        if svo_calc.ov_sorted_probs is not None:
+            sv_feature_num_instances_dictionary[language_code] = svo_calc.sv_instance_count
+        if svo_calc.ov_best_guess != "unk":
             ov_feature_dictionary[language_code] = svo_calc.ov_best_guess
+            ov_feature_num_instances_dictionary[language_code] = svo_calc.ov_instance_count
         if svo_calc.svo_best_guess == "ndo":
             ndo_languages.append(language_code)
         svo_calc.print_language_name()
         svo_calc.print_order_estimates()
         num_languages_determined += 1
     # DEBUG
-    #if num_languages_determined >= 10:
+    # if num_languages_determined >= 10:
     #    break
 
 print("Num Languages Determined: \n" + str(num_languages_determined))
 
-print_order_confusion_matrix_for_feature(svo_feature_dictionary, wals_svo, svo_possibilities, "SVO Data")
-print_order_confusion_matrix_for_feature(sv_feature_dictionary, wals_sv, sv_possibilities, "SV Data")
-print_order_confusion_matrix_for_feature(ov_feature_dictionary, wals_ov, ov_possibilities, "OV Data")
+svo_reporting = SVOReporting(svo_feature_dictionary, wals_svo, wals_dictionary, svo_feature_num_instances_dictionary,
+                             svo_possibilities, "SVO Data")
+sv_reporting = SVOReporting(sv_feature_dictionary, wals_sv, wals_dictionary, sv_feature_num_instances_dictionary,
+                            sv_possibilities, "SV Data")
+ov_reporting = SVOReporting(ov_feature_dictionary, wals_ov, wals_dictionary, ov_feature_num_instances_dictionary,
+                            ov_possibilities, "OV Data")
 
+svo_reporting.print_order_confusion_matrix_for_feature()
+sv_reporting.print_order_confusion_matrix_for_feature()
+ov_reporting.print_order_confusion_matrix_for_feature()
 
+svo_reporting.print_accuracy_vs_num_instances()
+sv_reporting.print_accuracy_vs_num_instances()
+ov_reporting.print_accuracy_vs_num_instances()
 
