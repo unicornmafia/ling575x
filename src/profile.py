@@ -110,3 +110,6 @@ svo_reporting.print_accuracy_vs_num_instances()
 sv_reporting.print_accuracy_vs_num_instances()
 ov_reporting.print_accuracy_vs_num_instances()
 
+svo_reporting.write_accuracy_vs_num_instances_to_file()
+sv_reporting.write_accuracy_vs_num_instances_to_file()
+ov_reporting.write_accuracy_vs_num_instances_to_file()

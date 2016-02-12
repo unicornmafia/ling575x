@@ -8,29 +8,46 @@ from confusionMatrix import ConfusionMatrix
 #
 class SVOReporting:
     def __init__(self, feature_dictionary,
-                       wals_gold_standard,
-                       wals_dictionary,
-                       feature_instances_dictionary,
-                       possibilities,
-                       label):
+                 wals_gold_standard,
+                 wals_dictionary,
+                 feature_instances_dictionary,
+                 possibilities,
+                 label):
         self.feature_dictionary = feature_dictionary
         self.wals_gold_standard = wals_gold_standard
         self.feature_instances_dictionary = feature_instances_dictionary
         self.wals_dictionary = wals_dictionary
         self.label = label
         self.possibilities = possibilities
+        self.instance_ranges = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+                                (6, 10), (11, 20), (21, 30), (31, 40), (41, 50),
+                                (51, 100), (101, 200), (201, 300), (301, 400), (401, 500),
+                                (500, 1000000)]
+        self.instance_labels = self.get_labels_from_ranges(self.instance_ranges)
+
+    def get_labels_from_ranges(self, instance_ranges):
+        longest_length = ""
+        instance_labels = []
+        #  warning:  I'm being too clever here.  tuple populates the string.
+        #  python slickness = hard to read sometimes
+        for instance_range in instance_ranges:
+            instance_labels.append("%d-%d" % instance_range)
+        longest_length = len(max(instance_labels, key=len)) + 2
+        for i in range(0, len(instance_labels)):
+            instance_labels[i] = instance_labels[i].ljust(longest_length, ".")
+        return instance_labels
 
     #
     # find the accuracy of a feature given feature with respect to WALS data, but make sure that
     # we have at least threshold_number_of_instances instances in the data.  otherwise ignore it.
     #
-    def get_single_accuracy(self, threshold_number_of_instances):
+    def get_single_accuracy(self, instance_range):
         num_reported = 0
         num_correct = 0
         for code in self.feature_dictionary:
             our_value = self.feature_dictionary[code]
             num_instances = self.feature_instances_dictionary[code]
-            if num_instances >= threshold_number_of_instances:
+            if instance_range[0] <= num_instances <= instance_range[1]:
                 try:
                     wals_code = self.wals_dictionary.iso_to_wals[code]
                     wals_value = self.wals_gold_standard.feature_dictionary[wals_code]
@@ -40,9 +57,9 @@ class SVOReporting:
                 except KeyError:
                     pass  # we can't find it.  don't calculate it
         if num_reported > 0:
-            return num_correct/float(num_reported)
+            return num_reported, num_correct
         else:
-            return 0.0
+            return num_reported, num_correct
 
     #
     # find the accuracy of a feature given feature with respect to WALS data, plot by limiting
@@ -51,10 +68,28 @@ class SVOReporting:
     #
     def print_accuracy_vs_num_instances(self):
         print("\nAccuracies vs num of instances for " + self.label)
-        thresholds = [1, 2, 3, 4, 5, 10, 20, 30, 50, 100]
-        for threshold in thresholds:
-            accuracy = self.get_single_accuracy(threshold)
-            print(str(threshold) + ": " + str(accuracy))
+        for i in range(0, len(self.instance_ranges)):
+            instance_range = self.instance_ranges[i]
+            instance_label = self.instance_labels[i]
+            statistics = self.get_single_accuracy(instance_range)
+            try:
+                accuracy = statistics[1]/float(statistics[0])
+                print(instance_label + "(" + str(statistics[0]) + " instances) : " + str(accuracy))
+            except ZeroDivisionError:
+                print(instance_label + "(" + str(statistics[0]) + " instances) : None")
+
+    def write_accuracy_vs_num_instances_to_file(self):
+        out_file = open(self.label + ".csv", "w")
+        print("Number Of Usable Instances, Number of Languages With data, Accuracy (num correct/num languages)", file=out_file)
+        for i in range(0, len(self.instance_ranges)):
+            instance_range = self.instance_ranges[i]
+            instance_label = self.instance_labels[i]
+            statistics = self.get_single_accuracy(instance_range)
+            try:
+                accuracy = statistics[1]/float(statistics[0])
+                print(instance_label.strip(".") + ", " + str(statistics[0]) + ", " + str(accuracy), file=out_file)
+            except ZeroDivisionError:
+                print(instance_label.strip(".") + ", " + str(statistics[0]) + ", 0", file=out_file)
 
     #
     # print the confusion matrix for the feature.
