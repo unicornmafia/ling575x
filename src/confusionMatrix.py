@@ -29,10 +29,20 @@ class ConfusionMatrix(dict):
         self.maxlen = len(max(labels, key=len))
 
     def add_label(self, true_label, output_label):
+        # just exit if we get something we don't expect.  don't collect stats
+        try:
+            self[true_label][output_label] += 1
+        except KeyError:
+            if true_label not in self:
+                print("Confusion Matrix: Received unrecognized gold standard label.  Ignoring. true_label:" + true_label)
+            elif output_label not in self[true_label]:
+                print("Confusion Matrix: Received unrecognized system label.  Ignoring. output_label:" + output_label)
+            return
         self.numTries += 1
-        self[true_label][output_label] += 1
         if true_label == output_label:
             self.numCorrect += 1
+
+
 
     def print_matrix(self):
         ret_string = "Confusion matrix for the " + self.batchLabel + " data:\n"

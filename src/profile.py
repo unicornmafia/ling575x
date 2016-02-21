@@ -32,15 +32,18 @@ wals_svo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81A")
 wals_sv = WalsFeature(os.path.join(wals_path, "wals-dataset"), "82A")
 wals_ov = WalsFeature(os.path.join(wals_path, "wals-dataset"), "83A")
 wals_ndo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81B")
+wals_nadj = WalsFeature(os.path.join(wals_path, "wals-dataset"), "87A")
 
 # some globals
 svo_feature_dictionary = {}
 sv_feature_dictionary = {}
 ov_feature_dictionary = {}
+nadj_feature_dictionary = {}
 
 svo_feature_num_instances_dictionary = {}
 sv_feature_num_instances_dictionary = {}
 ov_feature_num_instances_dictionary = {}
+nadj_feature_num_instances_dictionary = {}
 
 num_languages = len(odin_corpus)
 i = 0
@@ -50,6 +53,7 @@ ndo_languages = []
 svo_possibilities = ["SOV", "SVO", "VSO", "VOS", "OVS", "OSV", "ndo"]  # ndo is "no dominant order"
 sv_possibilities = ["SV", "VS", "ndo"]  # ndo is "no dominant order"
 ov_possibilities = ["OV", "VO", "ndo"]  # ndo is "no dominant order"
+nadj_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
 
 
 # START REALLY DOING STUFF HERE
@@ -73,7 +77,8 @@ for language in odin_corpus:
 
     xc = xigtxml.load(language, mode='full')
     svo_calc = SVO(xc, language_code)
-    svo_calc.estimate_word_order_for_each_instance()
+    svo_calc.estimate_nadj_for_each_instance()
+    #svo_calc.estimate_word_order_for_each_instance()
     if svo_calc.total_instance_count > 0:
         if svo_calc.svo_best_guess != "unk":
             svo_feature_dictionary[language_code] = svo_calc.svo_best_guess
@@ -84,32 +89,41 @@ for language in odin_corpus:
         if svo_calc.ov_best_guess != "unk":
             ov_feature_dictionary[language_code] = svo_calc.ov_best_guess
             ov_feature_num_instances_dictionary[language_code] = svo_calc.ov_instance_count
+        if svo_calc.nadj_best_guess != "unk":
+            nadj_feature_dictionary[language_code] = svo_calc.nadj_best_guess
+            nadj_feature_num_instances_dictionary[language_code] = svo_calc.nadj_instance_count
         if svo_calc.svo_best_guess == "ndo":
             ndo_languages.append(language_code)
         svo_calc.print_language_name()
         svo_calc.print_order_estimates()
         num_languages_determined += 1
-    # DEBUG
-    # if num_languages_determined >= 10:
-    #    break
+        # DEBUG
+    #if num_languages_determined >= 10:
+    #   break
 
 print("Num Languages Determined: \n" + str(num_languages_determined))
 
-svo_reporting = SVOReporting(svo_feature_dictionary, wals_svo, wals_dictionary, svo_feature_num_instances_dictionary,
-                             svo_possibilities, "SVO Data")
-sv_reporting = SVOReporting(sv_feature_dictionary, wals_sv, wals_dictionary, sv_feature_num_instances_dictionary,
-                            sv_possibilities, "SV Data")
-ov_reporting = SVOReporting(ov_feature_dictionary, wals_ov, wals_dictionary, ov_feature_num_instances_dictionary,
-                            ov_possibilities, "OV Data")
+#svo_reporting = SVOReporting(svo_feature_dictionary, wals_svo, wals_dictionary, svo_feature_num_instances_dictionary,
+#                             svo_possibilities, "Subject Verb Object Order Data")
+#sv_reporting = SVOReporting(sv_feature_dictionary, wals_sv, wals_dictionary, sv_feature_num_instances_dictionary,
+#                            sv_possibilities, "Subject Verb Order Data")
+#ov_reporting = SVOReporting(ov_feature_dictionary, wals_ov, wals_dictionary, ov_feature_num_instances_dictionary,
+#                            ov_possibilities, "Object Verb Order Data")
+nadj_reporting = SVOReporting(nadj_feature_dictionary, wals_nadj, wals_dictionary, nadj_feature_num_instances_dictionary,
+                             nadj_possibilities, "Noun-Adjective Order Data")
 
-svo_reporting.print_order_confusion_matrix_for_feature()
-sv_reporting.print_order_confusion_matrix_for_feature()
-ov_reporting.print_order_confusion_matrix_for_feature()
 
-svo_reporting.print_accuracy_vs_num_instances()
-sv_reporting.print_accuracy_vs_num_instances()
-ov_reporting.print_accuracy_vs_num_instances()
+#svo_reporting.print_order_confusion_matrix_for_feature()
+#sv_reporting.print_order_confusion_matrix_for_feature()
+#ov_reporting.print_order_confusion_matrix_for_feature()
+nadj_reporting.print_order_confusion_matrix_for_feature()
 
-svo_reporting.write_accuracy_vs_num_instances_to_file()
-sv_reporting.write_accuracy_vs_num_instances_to_file()
-ov_reporting.write_accuracy_vs_num_instances_to_file()
+#svo_reporting.print_accuracy_vs_num_instances()
+#sv_reporting.print_accuracy_vs_num_instances()
+#ov_reporting.print_accuracy_vs_num_instances()
+nadj_reporting.print_accuracy_vs_num_instances()
+
+#svo_reporting.write_accuracy_vs_num_instances_to_file()
+#sv_reporting.write_accuracy_vs_num_instances_to_file()
+#ov_reporting.write_accuracy_vs_num_instances_to_file()
+nadj_reporting.write_accuracy_vs_num_instances_to_file()

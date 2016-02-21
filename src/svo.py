@@ -28,6 +28,7 @@ class SVO:
     #
     def __init__(self, corpus, language_code, debug=False):
         self.SVO_order_probabilities = {"SOV": 0.0, "SVO": 0.0, "VSO": 0.0, "VOS": 0.0, "OVS": 0.0, "OSV": 0.0}
+        self.nadj_order_probabilities = {"Adjective-Noun": 0.0, "Noun-Adjective": 0.0}
         self.SVO_to_SV = {"SOV": "SV", "SVO": "SV", "VSO": "VS", "VOS": "VS", "OVS": "VS", "OSV": "SV"}
         self.SVO_to_OV = {"SOV": "OV", "SVO": "VO", "VSO": "VO", "VOS": "VO", "OVS": "OV", "OSV": "OV"}
         self.SV_order_probabilities = {"SV": 0.0, "VS": 0.0}
@@ -38,6 +39,7 @@ class SVO:
         self.svo_instance_count = 0
         self.sv_instance_count = 0
         self.ov_instance_count = 0
+        self.nadj_instance_count = 0
         self.corpus = corpus
         self.language_code = language_code
         self.debug = debug
@@ -47,6 +49,7 @@ class SVO:
         self.svo_best_guess = "unk"
         self.ov_best_guess = "unk"
         self.sv_best_guess = "unk"
+        self.nadj_best_guess = "unk"
         self.ndo_threshold = 0.25
         self.distribute_unknown_probabilities = False
 
@@ -65,6 +68,38 @@ class SVO:
             return word_list[0].grammatical_function+word_list[1].grammatical_function
         else:  # len had better be 3
             return word_list[0].grammatical_function+word_list[1].grammatical_function+word_list[2].grammatical_function
+
+    def estimate_nadj_for_instance(self, igt):
+        try:
+            words = igt["w"]
+            dparse = igt["w-ds"]
+        except KeyError:
+            return
+
+        if len(dparse) < 0:
+            return  # early exit.  wtf.
+
+        # loop looking for all adjectives
+        for pos in dparse:
+            if pos.text == "amod":
+                word = words[pos.attributes["dep"]]
+                word_segmentation = word.segmentation
+                word_token = ref.resolve(igt, word_segmentation)
+                try:
+                    head_word = words[pos.attributes["head"]]
+                    head_word_segmentation = head_word.segmentation
+                    head_word_token = ref.resolve(igt, head_word_segmentation)
+                    print("found adj:" + word_token + " modifying noun:" + head_word_token)
+                    adj = WordPos(word_token, "adj", word_segmentation)
+                    noun = WordPos(head_word, "noun", head_word_segmentation)
+                    if adj > noun:
+                        self.nadj_order_probabilities["Noun-Adjective"] += 1.0
+                    else:  # assume noun>adj
+                        self.nadj_order_probabilities["Adjective-Noun"] += 1.0
+                    self.nadj_instance_count += 1
+                    self.total_instance_count += 1
+                except KeyError:
+                    continue
 
     #
     # estimate_word_order_for_instance(): estimates word order for a single instance
@@ -172,6 +207,18 @@ class SVO:
                 best_guess = "ndo"  # no dominate order because probabilities of first two are too similar
         return [best_guess, sorted_probs]
 
+    def estimate_nadj_for_each_instance(self):
+        for igt in self.corpus:
+            self.estimate_nadj_for_instance(igt)
+        if self.nadj_instance_count > 0:
+            adj_noun_p = self.nadj_order_probabilities["Adjective-Noun"] / float(self.nadj_instance_count)
+            noun_adj_p = self.nadj_order_probabilities["Noun-Adjective"] / float(self.nadj_instance_count)
+            if abs(adj_noun_p-noun_adj_p) < self.ndo_threshold:
+                self.nadj_best_guess = "ndo"
+            elif adj_noun_p > noun_adj_p:
+                self.nadj_best_guess = "Adjective-Noun"
+            else:  # presumably noun_adj_p > adj_noun_p
+                self.nadj_best_guess = "Noun-Adjective"
     #
     # estimate_word_order_for_each_instance() - loops through all the igt instances and calculates word order.
     #               NOTE:  there is code in here to print the dependency parse because that was a pain!
@@ -180,7 +227,7 @@ class SVO:
     #
     def estimate_word_order_for_each_instance(self):
         for igt in self.corpus:
-           self.estimate_word_order_for_instance(igt)
+            self.estimate_word_order_for_instance(igt)
 
         if self.svo_instance_count > 0:
             # todo: UGLY!  will fix
