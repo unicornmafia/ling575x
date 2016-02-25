@@ -88,12 +88,16 @@ args = parser.parse_args()
 
 if args.nadj or args.all:
     do_nadj = True
+    print("Determining Noun-Adjective Order")
 if args.svo or args.all:
     do_svo = True
+    print("Determining Subject-Verb-Object Order")
 if args.sv or args.all:
     do_sv = True
+    print("Determining Subject-Verb Order")
 if args.ov or args.all:
     do_ov = True
+    print("Determining Object-Verb Order")
 
 
 def examine(calc, feature_dictionary, feature_num_instances_dictionary, error_analyzer):
