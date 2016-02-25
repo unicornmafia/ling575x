@@ -12,6 +12,7 @@
 #               from XIGT data vs WALS data.
 #
 ##############################################################################
+import sys
 
 
 class ErrorAnalysis:
@@ -25,17 +26,18 @@ class ErrorAnalysis:
         return wals_feature_answer
 
     @staticmethod
-    def print_stats_for_incorrect_instance(iso_code,
+    def print_stats_for_incorrect_instance(out_file,
+                                           iso_code,
                                            correct_answer,
                                            our_answer,
                                            instance_count,
                                            probabilities):
-        print("Incorrect Determination for: " + iso_code)
-        print("Correct Answer: {}, Our Answer: {}".format(correct_answer, our_answer))
-        print("Num Instances: {}".format(instance_count))
+        print("Incorrect Determination for: " + iso_code, file=out_file)
+        print("Correct Answer: {}, Our Answer: {}".format(correct_answer, our_answer), file=out_file)
+        print("Num Instances: {}".format(instance_count), file=out_file)
         for order, prob in probabilities.items():
-            print("Num {}: {}".format(order, prob))
-        print("")
+            print("Num {}: {}".format(order, prob), file=out_file)
+        print("", file=out_file)
 
     def analyze_instance(self, calc):
         num_instances = calc.instance_count
@@ -46,23 +48,18 @@ class ErrorAnalysis:
         if our_answer == correct_answer or num_instances == 0:
             return  # this one is correct, we aren't going to rock the boat
 
-        ErrorAnalysis.print_stats_for_incorrect_instance(iso_code,
-                                                         correct_answer,
-                                                         our_answer,
-                                                         num_instances,
-                                                         probabilities)
-
         self.incorrect_iso_ids.append((iso_code,
                                        correct_answer,
                                        our_answer,
                                        num_instances,
                                        probabilities))
 
-    def print_incorrect_guesses(self):
-        print("\nError Analysis for {}".format(self.label))
+    def print_incorrect_guesses(self, out_file=sys.stdout):
+        print("\nError Analysis for {}".format(self.label), file=out_file)
         for iso_code, correct_answer, our_answer, instance_count, probabilities in self.incorrect_iso_ids:
-            ErrorAnalysis.print_stats_for_incorrect_instance(iso_code,
-                                                    correct_answer,
-                                                    our_answer,
-                                                    instance_count,
-                                                    probabilities)
+            ErrorAnalysis.print_stats_for_incorrect_instance(out_file,
+                                                             iso_code,
+                                                             correct_answer,
+                                                             our_answer,
+                                                             instance_count,
+                                                             probabilities)

@@ -26,7 +26,7 @@ import argparse
 
 wals_path = "/opt/dropbox/15-16/575x/data/WALS-data"
 odin_path = "/opt/dropbox/15-16/575x/data/odin2.1/data/by-lang/xigt-enriched/"
-data_dir = "../data"
+data_dir = "./data"
 
 # this loads all the odin/xigt files in the path into a list
 odin_corpus = glob.glob(os.path.join(odin_path, "*.xml"))
@@ -54,16 +54,15 @@ nadj_feature_num_instances_dictionary = {}
 num_languages = len(odin_corpus)
 i = 0
 
-
 svo_possibilities = ["SOV", "SVO", "VSO", "VOS", "OVS", "OSV", "ndo"]  # ndo is "no dominant order"
 sv_possibilities = ["SV", "VS", "ndo"]  # ndo is "no dominant order"
 ov_possibilities = ["OV", "VO", "ndo"]  # ndo is "no dominant order"
 nadj_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
 
 nadj_errors = errors.ErrorAnalysis(wals_nadj, "Noun-Adjective")
-svo_errors = errors.ErrorAnalysis(wals_nadj, "SVO")
-ov_errors = errors.ErrorAnalysis(wals_nadj, "SV")
-sv_errors = errors.ErrorAnalysis(wals_nadj, "OV")
+svo_errors = errors.ErrorAnalysis(wals_svo, "SVO")
+ov_errors = errors.ErrorAnalysis(wals_ov, "SV")
+sv_errors = errors.ErrorAnalysis(wals_sv, "OV")
 
 try:
     os.stat(data_dir)
@@ -100,7 +99,7 @@ if args.ov or args.all:
     print("Determining Object-Verb Order")
 
 
-def examine(calc, feature_dictionary, feature_num_instances_dictionary, error_analyzer):
+def examine_language(calc, feature_dictionary, feature_num_instances_dictionary, error_analyzer):
     calc.estimate_word_order_for_each_instance()
     if calc.best_guess != "unk":
         feature_dictionary[language_code] = calc.best_guess
@@ -110,79 +109,82 @@ def examine(calc, feature_dictionary, feature_num_instances_dictionary, error_an
     error_analyzer.analyze_instance(calc)
 
 
-def report(feature_dictionary, wals, feature_num_instances_dictionary, possibilities, label):
+def final_report(feature_dictionary, wals, feature_num_instances_dictionary, possibilities, errors, label):
     reporting = Reporting(feature_dictionary, wals,
-                               feature_num_instances_dictionary,
-                               possibilities, data_dir,  label + " Data")
+                          feature_num_instances_dictionary,
+                          possibilities, label)
+    # write reports to stdout
     reporting.print_order_confusion_matrix_for_feature()
     reporting.print_accuracy_vs_num_instances()
-    reporting.write_accuracy_vs_num_instances_to_file()
+
+    # now write reports to file
+    base_file_name = os.path.join(data_dir, label.lower().replace(" ", "_"))
+    report_file_name = base_file_name + "_report.txt"
+    csv_file_name = base_file_name + "_accuracy_data.txt"
+    report_file = open(report_file_name, mode='w')
+    csv_file = open(csv_file_name, mode='w')
+    reporting.print_order_confusion_matrix_for_feature(report_file)
+    reporting.print_accuracy_vs_num_instances(report_file)
+
+    # make a csv (maybe not useful?)
+    reporting.write_accuracy_vs_num_instances_to_as_csv(csv_file)
+
+    # print the errors to a file
+    errors.print_incorrect_guesses(report_file)
+    report_file.close()
+    csv_file.close()
 
 
 # START REALLY DOING STUFF HERE
-# loop through and determine our best guess
+# loop through all the languages and determine our best guesses
 for language in odin_corpus:
     i += 1
     filename = os.path.basename(language)
     language_code = os.path.splitext(filename)[0]
 
     # DEBUG
-    #language = "/opt/dropbox/15-16/575x/data/odin2.1/data/by-lang/xigt-enriched/yaq.xml"
-    #language_code = "eng"
+    # language = "/opt/dropbox/15-16/575x/data/odin2.1/data/by-lang/xigt-enriched/yaq.xml"
+    # language_code = "eng"
 
-    wals_nadj_value = wals_nadj.get_value_from_iso_language_id(language_code)
-    wals_svo_value = wals_svo.get_value_from_iso_language_id(language_code)
-    wals_sv_value = wals_sv.get_value_from_iso_language_id(language_code)
-    wals_ov_value = wals_ov.get_value_from_iso_language_id(language_code)
-    if wals_svo_value == "No Match" \
-            and wals_sv_value == "No Match" \
-            and wals_ov_value == "No Match" \
-            and wals_nadj_value == "No Match":
-        continue  # early out if no one cares
+    wals_nadj_present = wals_nadj.is_language_present(language_code)
+    wals_svo_present = wals_svo.is_language_present(language_code)
+    wals_sv_present = wals_sv.is_language_present(language_code)
+    wals_ov_present = wals_ov.is_language_present(language_code)
+    # check to see if we should bother loading the language
+    if (wals_svo_present and do_svo) \
+            or (wals_sv_present and do_sv) \
+            or (wals_ov_present and do_ov) \
+            or (wals_nadj_present and do_nadj):
 
-    xc = xigtxml.load(language, mode='full')
-    if wals_nadj_value != "No Match" and do_nadj:
-        calc = NounAdjectiveProbe(xc, language_code)
-        examine(calc, nadj_feature_dictionary, nadj_feature_num_instances_dictionary, nadj_errors)
-    if wals_svo_value != "No Match" and do_svo:
-        calc = SVOProbe(xc, language_code)
-        examine(calc, svo_feature_dictionary, svo_feature_num_instances_dictionary, svo_errors)
-    if wals_sv_value != "No Match" and do_sv:
-        calc = SVProbe(xc, language_code)
-        examine(calc, sv_feature_dictionary, sv_feature_num_instances_dictionary, sv_errors)
-    if wals_ov_value != "No Match" and do_ov:
-        calc = OVProbe(xc, language_code)
-        examine(calc, ov_feature_dictionary, ov_feature_num_instances_dictionary, ov_errors)
+        xc = xigtxml.load(language, mode='full')
+        if wals_nadj_present and do_nadj:
+            calc = NounAdjectiveProbe(xc, language_code)
+            examine_language(calc, nadj_feature_dictionary, nadj_feature_num_instances_dictionary, nadj_errors)
+        if wals_svo_present and do_svo:
+            calc = SVOProbe(xc, language_code)
+            examine_language(calc, svo_feature_dictionary, svo_feature_num_instances_dictionary, svo_errors)
+        if wals_sv_present and do_sv:
+            calc = SVProbe(xc, language_code)
+            examine_language(calc, sv_feature_dictionary, sv_feature_num_instances_dictionary, sv_errors)
+        if wals_ov_present and do_ov:
+            calc = OVProbe(xc, language_code)
+            examine_language(calc, ov_feature_dictionary, ov_feature_num_instances_dictionary, ov_errors)
 
-    # DEBUG
-    # if len(nadj_errors.incorrect_iso_ids) > 1:
-    #    break
-
-
-if do_nadj:
-    report(nadj_feature_dictionary, wals_nadj, nadj_feature_num_instances_dictionary, nadj_possibilities, "Noun-Adjective")
-
-if do_svo:
-    report(svo_feature_dictionary, wals_svo, svo_feature_num_instances_dictionary, svo_possibilities, "SVO")
-
-if do_sv:
-    report(sv_feature_dictionary, wals_sv, sv_feature_num_instances_dictionary, sv_possibilities, "SV")
-
-if do_ov:
-    report(ov_feature_dictionary, wals_ov, ov_feature_num_instances_dictionary, ov_possibilities, "OV")
-
+            # DEBUG
+            # if len(nadj_errors.incorrect_iso_ids) > 1:
+            #     break
 
 if do_nadj:
-    nadj_errors.print_incorrect_guesses()
+    final_report(nadj_feature_dictionary, wals_nadj, nadj_feature_num_instances_dictionary, nadj_possibilities,
+                 nadj_errors,
+                 "Noun-Adjective")
 
 if do_svo:
-    svo_errors.print_incorrect_guesses()
+    final_report(svo_feature_dictionary, wals_svo, svo_feature_num_instances_dictionary, svo_possibilities, svo_errors,
+                 "SVO")
 
 if do_sv:
-    sv_errors.print_incorrect_guesses()
+    final_report(sv_feature_dictionary, wals_sv, sv_feature_num_instances_dictionary, sv_possibilities, sv_errors, "SV")
 
 if do_ov:
-    ov_errors.print_incorrect_guesses()
-
-
-
+    final_report(ov_feature_dictionary, wals_ov, ov_feature_num_instances_dictionary, ov_possibilities, ov_errors, "OV")

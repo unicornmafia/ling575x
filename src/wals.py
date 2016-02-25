@@ -53,6 +53,13 @@ class WalsFeature:
         except KeyError:
             return "No Match"
 
+    def is_language_present(self, iso_id):
+        if self.get_value_from_iso_language_id(iso_id) == "No Match":
+            return False
+        else:
+            return True
+
+
 #
 # WalsLanguageCodes
 #

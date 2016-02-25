@@ -1,6 +1,7 @@
 __author__ = 'thomas'
 from confusionMatrix import ConfusionMatrix
 import os
+import sys
 
 instance_ranges_path = "instance_ranges"
 
@@ -14,29 +15,27 @@ class Reporting:
                  wals_gold_standard,
                  feature_instances_dictionary,
                  possibilities,
-                 data_dir,
                  label):
         self.min_num_instances = 6
         self.feature_dictionary = feature_dictionary
         self.wals_gold_standard = wals_gold_standard
         self.feature_instances_dictionary = feature_instances_dictionary
         self.label = label
-        self.data_dir = data_dir
         self.possibilities = possibilities
         self.instance_ranges = []
         self.load_instance_ranges()
-        self.instance_labels = self.get_labels_from_ranges(self.instance_ranges)
+        self.instance_labels = self.get_labels_from_ranges()
 
     def load_instance_ranges(self):
         for line in open(instance_ranges_path):
             data_range = line.split(",")
             self.instance_ranges.append((int(data_range[0]), int(data_range[1])))
 
-    def get_labels_from_ranges(self, instance_ranges):
+    def get_labels_from_ranges(self):
         instance_labels = []
         #  warning:  I'm being too clever here.  tuple populates the string.
         #  python slickness = hard to read sometimes
-        for instance_range in instance_ranges:
+        for instance_range in self.instance_ranges:
             instance_labels.append("%d-%d" % instance_range)
         longest_length = len(max(instance_labels, key=len)) + 2
         for i in range(0, len(instance_labels)):
@@ -71,20 +70,19 @@ class Reporting:
     # by the number of instances contained in the language.  ignore if language does not have that
     # many instances
     #
-    def print_accuracy_vs_num_instances(self):
-        print("\nNumber of instances Vs. Accuracies for " + self.label)
+    def print_accuracy_vs_num_instances(self, out_file=sys.stdout):
+        print("\nNumber of instances Vs. Accuracies for " + self.label, file=out_file)
         for i in range(0, len(self.instance_ranges)):
             instance_range = self.instance_ranges[i]
             instance_label = self.instance_labels[i]
             statistics = self.get_single_accuracy(instance_range)
             try:
                 accuracy = statistics[1]/float(statistics[0])
-                print(instance_label + "(" + str(statistics[0]) + " languages) : " + str(accuracy))
+                print(instance_label + "(" + str(statistics[0]) + " languages) : " + str(accuracy), file=out_file)
             except ZeroDivisionError:
-                print(instance_label + "(" + str(statistics[0]) + " languages) : None")
+                print(instance_label + "(" + str(statistics[0]) + " languages) : None", file=out_file)
 
-    def write_accuracy_vs_num_instances_to_file(self):
-        out_file = open(os.path.join(self.data_dir, self.label + ".csv"), "w")
+    def write_accuracy_vs_num_instances_to_as_csv(self, out_file=sys.stdout):
         print("Number Of Usable Instances, Number of Languages With data, Accuracy (num correct/num languages)", file=out_file)
         for i in range(0, len(self.instance_ranges)):
             instance_range = self.instance_ranges[i]
@@ -104,9 +102,9 @@ class Reporting:
     #  possibilities:  the possible values for the feature
     #  title:  what to title this confusion matrix
     #
-    def print_order_confusion_matrix_for_feature(self):
+    def print_order_confusion_matrix_for_feature(self, out_file=sys.stdout):
         # build and print a confusion matrix for svo
-        print("\nComparing results with gold standard from WALS for " + self.label + ":")
+        print("\nComparing results with gold standard from WALS for " + self.label + ":", file=out_file)
         confusion_matrix = ConfusionMatrix(self.label, self.possibilities)
         num_reported = 0
         for code in self.feature_dictionary:
@@ -120,6 +118,6 @@ class Reporting:
                 except KeyError:
                     pass
                     #  print("No matching SVO WALS data for language " + code)
-        print("Num Languages Compared: " + str(num_reported))
+        print("Num Languages Compared: " + str(num_reported), file=out_file)
         if num_reported > 0:
-            print(confusion_matrix.print_matrix())
+            print(confusion_matrix.print_matrix(), file=out_file)
