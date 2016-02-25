@@ -16,6 +16,7 @@ class Reporting:
                  possibilities,
                  data_dir,
                  label):
+        self.min_num_instances = 6
         self.feature_dictionary = feature_dictionary
         self.wals_gold_standard = wals_gold_standard
         self.feature_instances_dictionary = feature_instances_dictionary
@@ -110,13 +111,15 @@ class Reporting:
         num_reported = 0
         for code in self.feature_dictionary:
             our_value = self.feature_dictionary[code]
-            try:
-                wals_value = self.wals_gold_standard.get_value_from_iso_language_id(code)
-                confusion_matrix.add_label(wals_value, our_value)
-                num_reported += 1
-            except KeyError:
-                pass
-                #  print("No matching SVO WALS data for language " + code)
+            num_instances = self.feature_instances_dictionary[code]
+            if num_instances >= self.min_num_instances:
+                try:
+                    wals_value = self.wals_gold_standard.get_value_from_iso_language_id(code)
+                    confusion_matrix.add_label(wals_value, our_value)
+                    num_reported += 1
+                except KeyError:
+                    pass
+                    #  print("No matching SVO WALS data for language " + code)
         print("Num Languages Compared: " + str(num_reported))
         if num_reported > 0:
             print(confusion_matrix.print_matrix())
