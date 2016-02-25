@@ -21,11 +21,12 @@ import os
 #               for a given WALS feature
 #
 class WalsFeature:
-    def __init__(self, path, feature_id):
+    def __init__(self, path, feature_id, wals_dictionary):
         self.path = path
         self.feature_id = feature_id
         self.feature_dictionary = {}
         self.load_dictionary()
+        self.wals_dictionary = wals_dictionary
 
     #
     # load_dictionary() - loads the dictionary from the file
@@ -43,6 +44,14 @@ class WalsFeature:
             if feature_value == "No dominant order":
                 feature_value = "ndo"
             self.feature_dictionary[language_id] = feature_value
+
+    def get_value_from_iso_language_id(self, iso_id):
+        try:
+            wals_code = self.wals_dictionary.iso_to_wals[iso_id]
+            wals_value = self.feature_dictionary[wals_code]
+            return wals_value
+        except KeyError:
+            return "No Match"
 
 #
 # WalsLanguageCodes

@@ -12,14 +12,19 @@
 #
 ##############################################################################
 from xigt.codecs import xigtxml
-from svo import SVO
+from svo import SVOProbe
+from sv import SVProbe
+from ov import OVProbe
+from nadj import NounAdjectiveProbe
 from wals import WalsFeature, WalsLanguageCodes
-from svoReporting import SVOReporting
+from reporting import Reporting
 import glob
 import os
+import errors
 
 wals_path = "/opt/dropbox/15-16/575x/data/WALS-data"
 odin_path = "/opt/dropbox/15-16/575x/data/odin2.1/data/by-lang/xigt-enriched/"
+data_dir = "../data"
 
 # this loads all the odin/xigt files in the path into a list
 odin_corpus = glob.glob(os.path.join(odin_path, "*.xml"))
@@ -28,11 +33,11 @@ odin_corpus = glob.glob(os.path.join(odin_path, "*.xml"))
 wals_dictionary = WalsLanguageCodes(os.path.join(wals_path, "wals-language"))
 
 # this is a simple list of languages and their gold-value for feature.
-wals_svo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81A")
-wals_sv = WalsFeature(os.path.join(wals_path, "wals-dataset"), "82A")
-wals_ov = WalsFeature(os.path.join(wals_path, "wals-dataset"), "83A")
-wals_ndo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81B")
-wals_nadj = WalsFeature(os.path.join(wals_path, "wals-dataset"), "87A")
+wals_svo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81A", wals_dictionary)
+wals_sv = WalsFeature(os.path.join(wals_path, "wals-dataset"), "82A", wals_dictionary)
+wals_ov = WalsFeature(os.path.join(wals_path, "wals-dataset"), "83A", wals_dictionary)
+wals_ndo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81B", wals_dictionary)
+wals_nadj = WalsFeature(os.path.join(wals_path, "wals-dataset"), "87A", wals_dictionary)
 
 # some globals
 svo_feature_dictionary = {}
@@ -47,13 +52,41 @@ nadj_feature_num_instances_dictionary = {}
 
 num_languages = len(odin_corpus)
 i = 0
-num_languages_determined = 0
-ndo_languages = []
+
 
 svo_possibilities = ["SOV", "SVO", "VSO", "VOS", "OVS", "OSV", "ndo"]  # ndo is "no dominant order"
 sv_possibilities = ["SV", "VS", "ndo"]  # ndo is "no dominant order"
 ov_possibilities = ["OV", "VO", "ndo"]  # ndo is "no dominant order"
 nadj_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
+
+nadj_errors = errors.ErrorAnalysis(wals_nadj, "Noun-Adjective")
+svo_errors = errors.ErrorAnalysis(wals_nadj, "SVO")
+ov_errors = errors.ErrorAnalysis(wals_nadj, "SV")
+sv_errors = errors.ErrorAnalysis(wals_nadj, "OV")
+
+try:
+    os.stat(data_dir)
+except:
+    os.mkdir(data_dir)
+
+
+def examine(calc, feature_dictionary, feature_num_instances_dictionary, error_analyzer):
+    calc.estimate_word_order_for_each_instance()
+    if calc.best_guess != "unk":
+        feature_dictionary[language_code] = calc.best_guess
+        feature_num_instances_dictionary[language_code] = calc.instance_count
+    calc.print_language_name()
+    calc.print_order_estimates()
+    error_analyzer.analyze_instance(calc)
+
+
+def report(feature_dictionary, wals, feature_num_instances_dictionary, possibilities, label):
+    reporting = Reporting(feature_dictionary, wals,
+                               feature_num_instances_dictionary,
+                               possibilities, data_dir,  label + " Data")
+    reporting.print_order_confusion_matrix_for_feature()
+    reporting.print_accuracy_vs_num_instances()
+    reporting.write_accuracy_vs_num_instances_to_file()
 
 
 # START REALLY DOING STUFF HERE
@@ -62,68 +95,45 @@ for language in odin_corpus:
     i += 1
     filename = os.path.basename(language)
     language_code = os.path.splitext(filename)[0]
-    try:
-        # todo:  this is going to change.   we will fail later when we're doing confusion matrix
-        # this is just a check to see if we get an error here.
-        # we're going to error out if we can't look up this language/feature in WALS.
-        wals_code = wals_dictionary.iso_to_wals[language_code]
-        wals_value = wals_svo.feature_dictionary[wals_code]
-    except KeyError:  # it wasn't in the dictionary of languages which have reported stats for feature in WALS
-        continue
 
     # DEBUG
-    #language = "/opt/dropbox/15-16/575x/data/odin2.1/data/by-lang/xigt-enriched/eng.xml"
+    #language = "/opt/dropbox/15-16/575x/data/odin2.1/data/by-lang/xigt-enriched/yaq.xml"
     #language_code = "eng"
 
+    wals_nadj_value = wals_nadj.get_value_from_iso_language_id(language_code)
+    wals_svo_value = wals_svo.get_value_from_iso_language_id(language_code)
+    wals_sv_value = wals_sv.get_value_from_iso_language_id(language_code)
+    wals_ov_value = wals_ov.get_value_from_iso_language_id(language_code)
+    if wals_svo_value == "No Match" \
+            and wals_sv_value == "No Match" \
+            and wals_ov_value == "No Match" \
+            and wals_nadj_value == "No Match":
+        continue  # early out if no one cares
+
     xc = xigtxml.load(language, mode='full')
-    svo_calc = SVO(xc, language_code)
-    svo_calc.estimate_nadj_for_each_instance()
-    #svo_calc.estimate_word_order_for_each_instance()
-    if svo_calc.total_instance_count > 0:
-        if svo_calc.svo_best_guess != "unk":
-            svo_feature_dictionary[language_code] = svo_calc.svo_best_guess
-            svo_feature_num_instances_dictionary[language_code] = svo_calc.svo_instance_count
-        if svo_calc.sv_best_guess != "unk":
-            sv_feature_dictionary[language_code] = svo_calc.sv_best_guess
-            sv_feature_num_instances_dictionary[language_code] = svo_calc.sv_instance_count
-        if svo_calc.ov_best_guess != "unk":
-            ov_feature_dictionary[language_code] = svo_calc.ov_best_guess
-            ov_feature_num_instances_dictionary[language_code] = svo_calc.ov_instance_count
-        if svo_calc.nadj_best_guess != "unk":
-            nadj_feature_dictionary[language_code] = svo_calc.nadj_best_guess
-            nadj_feature_num_instances_dictionary[language_code] = svo_calc.nadj_instance_count
-        if svo_calc.svo_best_guess == "ndo":
-            ndo_languages.append(language_code)
-        svo_calc.print_language_name()
-        svo_calc.print_order_estimates()
-        num_languages_determined += 1
-        # DEBUG
-    #if num_languages_determined >= 10:
-    #   break
+    if wals_nadj_value != "No Match":
+        calc = NounAdjectiveProbe(xc, language_code)
+        examine(calc, nadj_feature_dictionary, nadj_feature_num_instances_dictionary, nadj_errors)
+    if wals_svo_value != "No Match":
+        calc = SVOProbe(xc, language_code)
+        examine(calc, svo_feature_dictionary, svo_feature_num_instances_dictionary, svo_errors)
+    if wals_sv_value != "No Match":
+        calc = SVProbe(xc, language_code)
+        examine(calc, sv_feature_dictionary, sv_feature_num_instances_dictionary, sv_errors)
+    if wals_ov_value != "No Match":
+        calc = OVProbe(xc, language_code)
+        examine(calc, ov_feature_dictionary, ov_feature_num_instances_dictionary, ov_errors)
 
-print("Num Languages Determined: \n" + str(num_languages_determined))
-
-#svo_reporting = SVOReporting(svo_feature_dictionary, wals_svo, wals_dictionary, svo_feature_num_instances_dictionary,
-#                             svo_possibilities, "Subject Verb Object Order Data")
-#sv_reporting = SVOReporting(sv_feature_dictionary, wals_sv, wals_dictionary, sv_feature_num_instances_dictionary,
-#                            sv_possibilities, "Subject Verb Order Data")
-#ov_reporting = SVOReporting(ov_feature_dictionary, wals_ov, wals_dictionary, ov_feature_num_instances_dictionary,
-#                            ov_possibilities, "Object Verb Order Data")
-nadj_reporting = SVOReporting(nadj_feature_dictionary, wals_nadj, wals_dictionary, nadj_feature_num_instances_dictionary,
-                             nadj_possibilities, "Noun-Adjective Order Data")
+    # DEBUG
+    if len(nadj_errors.incorrect_iso_ids) > 5:
+        break
 
 
-#svo_reporting.print_order_confusion_matrix_for_feature()
-#sv_reporting.print_order_confusion_matrix_for_feature()
-#ov_reporting.print_order_confusion_matrix_for_feature()
-nadj_reporting.print_order_confusion_matrix_for_feature()
+report(nadj_feature_dictionary, wals_nadj, nadj_feature_num_instances_dictionary, nadj_possibilities, "Noun-Adjective")
+nadj_errors.print_incorrect_guesses()
 
-#svo_reporting.print_accuracy_vs_num_instances()
-#sv_reporting.print_accuracy_vs_num_instances()
-#ov_reporting.print_accuracy_vs_num_instances()
-nadj_reporting.print_accuracy_vs_num_instances()
+report(svo_feature_dictionary, wals_svo, svo_feature_num_instances_dictionary, svo_possibilities, "SVO")
+report(sv_feature_dictionary, wals_sv, sv_feature_num_instances_dictionary, sv_possibilities, "SV")
+report(ov_feature_dictionary, wals_ov, ov_feature_num_instances_dictionary, ov_possibilities, "OV")
 
-#svo_reporting.write_accuracy_vs_num_instances_to_file()
-#sv_reporting.write_accuracy_vs_num_instances_to_file()
-#ov_reporting.write_accuracy_vs_num_instances_to_file()
-nadj_reporting.write_accuracy_vs_num_instances_to_file()
+

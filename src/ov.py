@@ -4,11 +4,11 @@
 # language profile project
 # Winter Term, 2016, Fei Xia
 #
-# svo.py
+# ov.py
 #
 # author:  tcmarsh@uw.edu
 #
-# description:  class for determining the SVO word order for a XIGT
+# description:  class for determining the OV word order for a XIGT
 #               corpus of odin data
 #
 ##############################################################################
@@ -18,9 +18,9 @@ from featureProbe import FeatureProbe
 
 
 #
-# SVOProbe:  contains logic for determining word order (WALS features 81A, 82A, 83A) for a single language.
+# OVProbe:  contains logic for determining OV word order for a language
 #
-class SVOProbe(FeatureProbe):
+class OVProbe(FeatureProbe):
     #
     # constructor
     #
@@ -28,11 +28,11 @@ class SVOProbe(FeatureProbe):
     #   debug:  print dependency parse and text for each instance
     #
     def __init__(self, corpus, language_code, debug=False):
-        super(SVOProbe, self).__init__(corpus,
-                                       language_code,
-                                       ["SOV", "SVO", "VSO", "VOS", "OVS", "OSV"],
-                                       "SVO",
-                                       debug)
+        super(OVProbe, self).__init__(corpus,
+                                      language_code,
+                                      ["OV", "VO"],
+                                      "OV",
+                                      debug)
 
     #
     # estimate_word_order_for_instance(): estimates word order for a single instance
@@ -71,25 +71,18 @@ class SVOProbe(FeatureProbe):
                 segmentation = word.segmentation
                 word_token = ref.resolve(igt, segmentation)
                 head_word = pos.attributes["head"]
-                if pos.text == "nsubj" and not found_subj and head_word == root_word:
-                    function_list.append(WordPos(word_token, "S", segmentation))
-                    found_subj = True
-                    if found_obj:
-                        break  # break out of the loop.   we have everything we need
-                elif pos.text == "dobj" and not found_obj and head_word == root_word:
+                if pos.text == "dobj" and not found_obj and head_word == root_word:
                     function_list.append(WordPos(word_token, "O", segmentation))
                     found_obj = True
-                    if found_subj:
-                        break  # break out of the loop.   we have everything we need
+                    break  # break out of the loop.   we have everything we need
 
         # if we've found something, let's add some probabilities
         if found_root and len(function_list) > 1:
             sorted_list = sorted(function_list)
             word_order = FeatureProbe.list_to_word_order(sorted_list)
-            if found_subj and found_obj:
+            if found_obj:
                 self.instance_count += 1
                 self.order_counts[word_order] += 1.0
-                if self.debug:
-                    self.debug_log("WORD-ORDER: " + word_order)
+
 
 

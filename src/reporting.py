@@ -1,32 +1,37 @@
 __author__ = 'thomas'
 from confusionMatrix import ConfusionMatrix
+import os
+
+instance_ranges_path = "instance_ranges"
 
 
 #
 # SVOReporting:  helper class for keeping track of and reporting statistics of our data.
 #
 #
-class SVOReporting:
+class Reporting:
     def __init__(self, feature_dictionary,
                  wals_gold_standard,
-                 wals_dictionary,
                  feature_instances_dictionary,
                  possibilities,
+                 data_dir,
                  label):
         self.feature_dictionary = feature_dictionary
         self.wals_gold_standard = wals_gold_standard
         self.feature_instances_dictionary = feature_instances_dictionary
-        self.wals_dictionary = wals_dictionary
         self.label = label
+        self.data_dir = data_dir
         self.possibilities = possibilities
-        self.instance_ranges = [(1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
-                                (6, 10), (11, 20), (21, 30), (31, 40), (41, 50),
-                                (51, 100), (101, 200), (201, 300), (301, 400), (401, 500),
-                                (500, 1000000)]
+        self.instance_ranges = []
         self.instance_labels = self.get_labels_from_ranges(self.instance_ranges)
+        self.load_instance_ranges()
+
+    def load_instance_ranges(self):
+        for line in open(instance_ranges_path):
+            data_range = line.split(",")
+            self.instance_ranges.append((int(data_range[0]), int(data_range[1])))
 
     def get_labels_from_ranges(self, instance_ranges):
-        longest_length = ""
         instance_labels = []
         #  warning:  I'm being too clever here.  tuple populates the string.
         #  python slickness = hard to read sometimes
@@ -49,8 +54,7 @@ class SVOReporting:
             num_instances = self.feature_instances_dictionary[code]
             if instance_range[0] <= num_instances <= instance_range[1]:
                 try:
-                    wals_code = self.wals_dictionary.iso_to_wals[code]
-                    wals_value = self.wals_gold_standard.feature_dictionary[wals_code]
+                    wals_value = self.wals_gold_standard.get_value_from_iso_language_id(code)
                     num_reported += 1
                     if wals_value == our_value:
                         num_correct += 1
@@ -67,19 +71,19 @@ class SVOReporting:
     # many instances
     #
     def print_accuracy_vs_num_instances(self):
-        print("\nAccuracies vs num of instances for " + self.label)
+        print("\nNumber of instances Vs. Accuracies for " + self.label)
         for i in range(0, len(self.instance_ranges)):
             instance_range = self.instance_ranges[i]
             instance_label = self.instance_labels[i]
             statistics = self.get_single_accuracy(instance_range)
             try:
                 accuracy = statistics[1]/float(statistics[0])
-                print(instance_label + "(" + str(statistics[0]) + " instances) : " + str(accuracy))
+                print(instance_label + "(" + str(statistics[0]) + " languages) : " + str(accuracy))
             except ZeroDivisionError:
-                print(instance_label + "(" + str(statistics[0]) + " instances) : None")
+                print(instance_label + "(" + str(statistics[0]) + " languages) : None")
 
     def write_accuracy_vs_num_instances_to_file(self):
-        out_file = open(self.label + ".csv", "w")
+        out_file = open(os.path.join(self.data_dir, self.label + ".csv"), "w")
         print("Number Of Usable Instances, Number of Languages With data, Accuracy (num correct/num languages)", file=out_file)
         for i in range(0, len(self.instance_ranges)):
             instance_range = self.instance_ranges[i]
@@ -107,8 +111,7 @@ class SVOReporting:
         for code in self.feature_dictionary:
             our_value = self.feature_dictionary[code]
             try:
-                wals_code = self.wals_dictionary.iso_to_wals[code]
-                wals_value = self.wals_gold_standard.feature_dictionary[wals_code]
+                wals_value = self.wals_gold_standard.get_value_from_iso_language_id(code)
                 confusion_matrix.add_label(wals_value, our_value)
                 num_reported += 1
             except KeyError:
