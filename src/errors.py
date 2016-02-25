@@ -59,7 +59,7 @@ class ErrorAnalysis:
                                        probabilities))
 
     def print_incorrect_guesses(self):
-        print("Error Analysis for {}".format(self.label))
+        print("\nError Analysis for {}".format(self.label))
         for iso_code, correct_answer, our_answer, instance_count, probabilities in self.incorrect_iso_ids:
             ErrorAnalysis.print_stats_for_incorrect_instance(iso_code,
                                                     correct_answer,

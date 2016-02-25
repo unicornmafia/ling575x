@@ -151,8 +151,8 @@ for language in odin_corpus:
         examine(calc, ov_feature_dictionary, ov_feature_num_instances_dictionary, ov_errors)
 
     # DEBUG
-    if len(nadj_errors.incorrect_iso_ids) > 1:
-        break
+    # if len(nadj_errors.incorrect_iso_ids) > 1:
+    #    break
 
 
 if do_nadj:
