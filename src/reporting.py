@@ -23,8 +23,8 @@ class Reporting:
         self.data_dir = data_dir
         self.possibilities = possibilities
         self.instance_ranges = []
-        self.instance_labels = self.get_labels_from_ranges(self.instance_ranges)
         self.load_instance_ranges()
+        self.instance_labels = self.get_labels_from_ranges(self.instance_ranges)
 
     def load_instance_ranges(self):
         for line in open(instance_ranges_path):

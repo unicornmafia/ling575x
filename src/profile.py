@@ -11,6 +11,7 @@
 # description:  entry point for language profile project
 #
 ##############################################################################
+
 from xigt.codecs import xigtxml
 from svo import SVOProbe
 from sv import SVProbe
@@ -21,6 +22,7 @@ from reporting import Reporting
 import glob
 import os
 import errors
+import argparse
 
 wals_path = "/opt/dropbox/15-16/575x/data/WALS-data"
 odin_path = "/opt/dropbox/15-16/575x/data/odin2.1/data/by-lang/xigt-enriched/"
@@ -36,7 +38,6 @@ wals_dictionary = WalsLanguageCodes(os.path.join(wals_path, "wals-language"))
 wals_svo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81A", wals_dictionary)
 wals_sv = WalsFeature(os.path.join(wals_path, "wals-dataset"), "82A", wals_dictionary)
 wals_ov = WalsFeature(os.path.join(wals_path, "wals-dataset"), "83A", wals_dictionary)
-wals_ndo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81B", wals_dictionary)
 wals_nadj = WalsFeature(os.path.join(wals_path, "wals-dataset"), "87A", wals_dictionary)
 
 # some globals
@@ -68,6 +69,31 @@ try:
     os.stat(data_dir)
 except:
     os.mkdir(data_dir)
+
+do_nadj = False
+do_svo = False
+do_sv = False
+do_ov = False
+
+##############################################################
+# get parser args and set up global variables
+##############################################################
+parser = argparse.ArgumentParser(description='XIGT Language Profiler.')
+parser.add_argument('-n', '--nadj', help="calculate noun-adjective order", action="store_true")
+parser.add_argument('-s', '--svo', help="calculate subject-object-verb order", action="store_true")
+parser.add_argument('-o', '--ov', help="calculate object-verb order", action="store_true")
+parser.add_argument('-v', '--sv', help="calculate subject-verb order", action="store_true")
+parser.add_argument('-a', '--all', help="calculate all orders", action="store_true")
+args = parser.parse_args()
+
+if args.nadj or args.all:
+    do_nadj = True
+if args.svo or args.all:
+    do_svo = True
+if args.sv or args.all:
+    do_sv = True
+if args.ov or args.all:
+    do_ov = True
 
 
 def examine(calc, feature_dictionary, feature_num_instances_dictionary, error_analyzer):
@@ -111,29 +137,48 @@ for language in odin_corpus:
         continue  # early out if no one cares
 
     xc = xigtxml.load(language, mode='full')
-    if wals_nadj_value != "No Match":
+    if wals_nadj_value != "No Match" and do_nadj:
         calc = NounAdjectiveProbe(xc, language_code)
         examine(calc, nadj_feature_dictionary, nadj_feature_num_instances_dictionary, nadj_errors)
-    if wals_svo_value != "No Match":
+    if wals_svo_value != "No Match" and do_svo:
         calc = SVOProbe(xc, language_code)
         examine(calc, svo_feature_dictionary, svo_feature_num_instances_dictionary, svo_errors)
-    if wals_sv_value != "No Match":
+    if wals_sv_value != "No Match" and do_sv:
         calc = SVProbe(xc, language_code)
         examine(calc, sv_feature_dictionary, sv_feature_num_instances_dictionary, sv_errors)
-    if wals_ov_value != "No Match":
+    if wals_ov_value != "No Match" and do_ov:
         calc = OVProbe(xc, language_code)
         examine(calc, ov_feature_dictionary, ov_feature_num_instances_dictionary, ov_errors)
 
     # DEBUG
-    if len(nadj_errors.incorrect_iso_ids) > 5:
+    if len(nadj_errors.incorrect_iso_ids) > 1:
         break
 
 
-report(nadj_feature_dictionary, wals_nadj, nadj_feature_num_instances_dictionary, nadj_possibilities, "Noun-Adjective")
-nadj_errors.print_incorrect_guesses()
+if do_nadj:
+    report(nadj_feature_dictionary, wals_nadj, nadj_feature_num_instances_dictionary, nadj_possibilities, "Noun-Adjective")
 
-report(svo_feature_dictionary, wals_svo, svo_feature_num_instances_dictionary, svo_possibilities, "SVO")
-report(sv_feature_dictionary, wals_sv, sv_feature_num_instances_dictionary, sv_possibilities, "SV")
-report(ov_feature_dictionary, wals_ov, ov_feature_num_instances_dictionary, ov_possibilities, "OV")
+if do_svo:
+    report(svo_feature_dictionary, wals_svo, svo_feature_num_instances_dictionary, svo_possibilities, "SVO")
+
+if do_sv:
+    report(sv_feature_dictionary, wals_sv, sv_feature_num_instances_dictionary, sv_possibilities, "SV")
+
+if do_ov:
+    report(ov_feature_dictionary, wals_ov, ov_feature_num_instances_dictionary, ov_possibilities, "OV")
+
+
+if do_nadj:
+    nadj_errors.print_incorrect_guesses()
+
+if do_svo:
+    svo_errors.print_incorrect_guesses()
+
+if do_sv:
+    sv_errors.print_incorrect_guesses()
+
+if do_ov:
+    ov_errors.print_incorrect_guesses()
+
 
 

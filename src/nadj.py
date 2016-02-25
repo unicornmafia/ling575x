@@ -92,10 +92,8 @@ class NounAdjectiveProbe(FeatureProbe):
         if abs(adj_noun_p - noun_adj_p) < self.ndo_threshold:
             self.best_guess = "ndo"
         elif adj_noun_p > noun_adj_p:
-            self.best_guess = adj_noun_p
-            self.sorted_probs = [("Adjective-Noun", self.order_counts["Adjective-Noun"]),
-                                 ("Noun-Adjective", self.order_counts["Noun-Adjective"])]
+            self.best_guess = "Adjective-Noun"
+            self.sorted_probs = ["Adjective-Noun", "Noun-Adjective"]
         else:  # presumably noun_adj_p > adj_noun_p
             self.best_guess = "Noun-Adjective"
-            self.sorted_probs = [("Noun-Adjective", self.order_counts["Noun-Adjective"]),
-                                 ("Adjective-Noun", self.order_counts["Adjective-Noun"])]
+            self.sorted_probs = ["Noun-Adjective", "Adjective-Noun"]
