@@ -15,8 +15,9 @@ class Reporting:
                  wals_gold_standard,
                  feature_instances_dictionary,
                  possibilities,
-                 label):
-        self.min_num_instances = 6
+                 label,
+                 min_num_instances=6):
+        self.min_num_instances = min_num_instances
         self.feature_dictionary = feature_dictionary
         self.wals_gold_standard = wals_gold_standard
         self.feature_instances_dictionary = feature_instances_dictionary

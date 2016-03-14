@@ -27,12 +27,13 @@ class SVProbe(FeatureProbe):
     # parameters:
     #   debug:  print dependency parse and text for each instance
     #
-    def __init__(self, corpus, language_code, debug=False):
+    def __init__(self, corpus, language_code, debug=False, ndo_threshold=0.25):
         super(SVProbe, self).__init__(corpus,
                                       language_code,
                                       ["SV", "VS"],
                                       "SV",
-                                      debug)
+                                      debug,
+                                      ndo_threshold)
 
 
     #

@@ -27,12 +27,13 @@ class OVProbe(FeatureProbe):
     # parameters:
     #   debug:  print dependency parse and text for each instance
     #
-    def __init__(self, corpus, language_code, debug=False):
+    def __init__(self, corpus, language_code, debug=False, ndo_threshold=0.25):
         super(OVProbe, self).__init__(corpus,
                                       language_code,
                                       ["OV", "VO"],
                                       "OV",
-                                      debug)
+                                      debug,
+                                      ndo_threshold)
 
     #
     # estimate_word_order_for_instance(): estimates word order for a single instance

@@ -27,7 +27,7 @@ class FeatureProbe:
     # parameters:
     #   debug:  print dependency parse and text for each instance
     #
-    def __init__(self, corpus, language_code, possibilities, label, debug):
+    def __init__(self, corpus, language_code, possibilities, label, debug=False, ndo_threshold=0.25):
         self.order_counts = {}
         self.order_possibilities = possibilities
         self.instance_count = 0
@@ -36,7 +36,7 @@ class FeatureProbe:
         self.debug = debug
         self.sorted_probs = []
         self.best_guess = "unk"
-        self.ndo_threshold = 0.25
+        self.ndo_threshold = ndo_threshold
         self.label = label
         for possibility in self.order_possibilities:
             self.order_counts[possibility] = 0.0
@@ -88,11 +88,12 @@ class FeatureProbe:
         elif len(sorted_probs) > 1:  # see if the top one is over the threshold from the secondmost one
             if self.order_counts[sorted_probs[0]] == 0.0:
                 return ["unk", None]
+            # no abs() necessary.  top is always more than second
             diff = self.order_counts[sorted_probs[0]] - self.order_counts[sorted_probs[1]]
-            if diff > self.ndo_threshold:
-                best_guess = sorted_probs[0]
-            else:
+            if diff < self.ndo_threshold:
                 best_guess = "ndo"  # no dominate order because probabilities of first two are too similar
+            else:
+                best_guess = sorted_probs[0]
         self.best_guess = best_guess
         self.sorted_probs = sorted_probs
 

@@ -83,6 +83,10 @@ parser.add_argument('-s', '--svo', help="calculate subject-object-verb order", a
 parser.add_argument('-o', '--ov', help="calculate object-verb order", action="store_true")
 parser.add_argument('-v', '--sv', help="calculate subject-verb order", action="store_true")
 parser.add_argument('-a', '--all', help="calculate all orders", action="store_true")
+parser.add_argument('-i', '--minIinstances', type=int, default=6,
+                    help="Instances Threshold:  Number of instances to require before accepting data")
+parser.add_argument('-d', '--ndo', type=float, default=0.25,
+                    help="NDO Threshold:  How close the top two probabilities are required to be for a clear determination.  Items inside this range are marked as NDO")
 args = parser.parse_args()
 
 if args.nadj or args.all:
@@ -112,7 +116,7 @@ def examine_language(calc, feature_dictionary, feature_num_instances_dictionary,
 def final_report(feature_dictionary, wals, feature_num_instances_dictionary, possibilities, errors, label):
     reporting = Reporting(feature_dictionary, wals,
                           feature_num_instances_dictionary,
-                          possibilities, label)
+                          possibilities, label, args.minIinstances)
     # write reports to stdout
     reporting.print_order_confusion_matrix_for_feature()
     reporting.print_accuracy_vs_num_instances()
@@ -158,16 +162,16 @@ for language in odin_corpus:
 
         xc = xigtxml.load(language, mode='full')
         if wals_nadj_present and do_nadj:
-            calc = NounAdjectiveProbe(xc, language_code)
+            calc = NounAdjectiveProbe(xc, language_code, False, args.ndo)
             examine_language(calc, nadj_feature_dictionary, nadj_feature_num_instances_dictionary, nadj_errors)
         if wals_svo_present and do_svo:
-            calc = SVOProbe(xc, language_code)
+            calc = SVOProbe(xc, language_code, False, args.ndo)
             examine_language(calc, svo_feature_dictionary, svo_feature_num_instances_dictionary, svo_errors)
         if wals_sv_present and do_sv:
-            calc = SVProbe(xc, language_code)
+            calc = SVProbe(xc, language_code, False, args.ndo)
             examine_language(calc, sv_feature_dictionary, sv_feature_num_instances_dictionary, sv_errors)
         if wals_ov_present and do_ov:
-            calc = OVProbe(xc, language_code)
+            calc = OVProbe(xc, language_code, False, args.ndo)
             examine_language(calc, ov_feature_dictionary, ov_feature_num_instances_dictionary, ov_errors)
 
             # DEBUG

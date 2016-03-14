@@ -27,12 +27,13 @@ class NounAdjectiveProbe(FeatureProbe):
     # parameters:
     #   debug:  print dependency parse and text for each instance
     #
-    def __init__(self, corpus, language_code, debug=False):
+    def __init__(self, corpus, language_code, debug=False, ndo_threshold=0.25):
         super(NounAdjectiveProbe, self).__init__(corpus,
                                                  language_code,
                                                  ["Adjective-Noun", "Noun-Adjective"],
                                                  "Adjective-Noun",
-                                                 debug)
+                                                 debug,
+                                                 ndo_threshold)
         self.noun_list = ["nsubj", "dobj", "nn", "nsubjpass"]
 
     def is_head_noun(self, adj_pos, igt, dparse):
