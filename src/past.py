@@ -42,12 +42,12 @@ class PastTenseProbe(FeatureProbe):
     # look at n, n2, find PAST, PST
     def determine_feature_value_for_instance(self, igt):
         try:
-            normalized_gloss_line = igt["n"]["n2"].value.lower()
+            normalized_gloss_line = igt["n"]["n2"].text.lower()
 
-        except KeyError:
+        except (KeyError, AttributeError):
             return
 
-        if "past" in normalized_gloss_line or "pst" in normalized_gloss_line:
+        if normalized_gloss_line.find("past") > 0 or normalized_gloss_line.find("pst") > 0:
             self.instance_count += 1
             self.order_counts["marked"] += 1.0
         else:

@@ -16,6 +16,8 @@ from xigt.codecs import xigtxml
 from svo import SVOProbe
 from sv import SVProbe
 from ov import OVProbe
+from past import PastTenseProbe
+from future import FutureTenseProbe
 from nadj import NounAdjectiveProbe
 from wals import WalsFeature, WalsLanguageCodes
 from reporting import Reporting

@@ -42,12 +42,12 @@ class FutureTenseProbe(FeatureProbe):
     #  (LOOK FOR "FUT")
     def determine_feature_value_for_instance(self, igt):
         try:
-            normalized_gloss_line = igt["n"]["n2"].value
+            normalized_gloss_line = igt["n"]["n2"].text.lower()
 
-        except KeyError:
+        except (KeyError, AttributeError):
             return
 
-        if "future" in normalized_gloss_line or "fut" in normalized_gloss_line:
+        if normalized_gloss_line.find("fut") > 0 or normalized_gloss_line.find("future") > 0:
             self.instance_count += 1
             self.order_counts["marked"] += 1.0
         else:
