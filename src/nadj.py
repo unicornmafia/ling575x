@@ -53,7 +53,7 @@ class NounAdjectiveProbe(FeatureProbe):
         # weird.  we didn't find the word.
         return False
 
-    def estimate_word_order_for_instance(self, igt):
+    def determine_feature_value_for_instance(self, igt):
         try:
             words = igt["w"]
             dparse = igt["w-ds"]

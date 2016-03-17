@@ -57,13 +57,13 @@ class FeatureProbe:
             return word_list[0].grammatical_function+word_list[1].grammatical_function+word_list[2].grammatical_function
 
     #
-    # estimate_word_order_for_instance(): estimates word order for a single instance
+    # determine_feature_value_for_instance(): estimates word order for a single instance
     # note:  this only checks for non-passive constructions
     # parameters:
     #   igt - the igt
     #
     @abc.abstractmethod
-    def estimate_word_order_for_instance(self, igt):
+    def determine_feature_value_for_instance(self, igt):
         """ must implement as child """
 
     #
@@ -105,7 +105,7 @@ class FeatureProbe:
     #
     def estimate_word_order_for_each_instance(self):
         for igt in self.corpus:
-            self.estimate_word_order_for_instance(igt)
+            self.determine_feature_value_for_instance(igt)
 
         if self.instance_count > 0:
             self.generate_best_guess()

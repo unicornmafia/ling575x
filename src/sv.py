@@ -37,12 +37,12 @@ class SVProbe(FeatureProbe):
 
 
     #
-    # estimate_word_order_for_instance(): estimates word order for a single instance
+    # determine_feature_value_for_instance(): estimates word order for a single instance
     # note:  this only checks for non-passive constructions
     # parameters:
     #   igt - the igt
     #
-    def estimate_word_order_for_instance(self, igt):
+    def determine_feature_value_for_instance(self, igt):
         function_list = []
         try:
             words = igt["w"]

@@ -39,17 +39,23 @@ wals_svo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81A", wals_dict
 wals_sv = WalsFeature(os.path.join(wals_path, "wals-dataset"), "82A", wals_dictionary)
 wals_ov = WalsFeature(os.path.join(wals_path, "wals-dataset"), "83A", wals_dictionary)
 wals_nadj = WalsFeature(os.path.join(wals_path, "wals-dataset"), "87A", wals_dictionary)
+wals_past_tense = WalsFeature(os.path.join(wals_path, "wals-dataset"), "66A", wals_dictionary)
+wals_future_tense = WalsFeature(os.path.join(wals_path, "wals-dataset"), "67A", wals_dictionary)
 
 # some globals
 svo_feature_dictionary = {}
 sv_feature_dictionary = {}
 ov_feature_dictionary = {}
 nadj_feature_dictionary = {}
+past_tense_feature_dictionary = {}
+future_tense_feature_dictionary = {}
 
 svo_feature_num_instances_dictionary = {}
 sv_feature_num_instances_dictionary = {}
 ov_feature_num_instances_dictionary = {}
 nadj_feature_num_instances_dictionary = {}
+past_tense_feature_num_instances_dictionary = {}
+future_tense_feature_num_instances_dictionary = {}
 
 num_languages = len(odin_corpus)
 i = 0
@@ -58,11 +64,15 @@ svo_possibilities = ["SOV", "SVO", "VSO", "VOS", "OVS", "OSV", "ndo"]  # ndo is 
 sv_possibilities = ["SV", "VS", "ndo"]  # ndo is "no dominant order"
 ov_possibilities = ["OV", "VO", "ndo"]  # ndo is "no dominant order"
 nadj_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
+past_tense_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
+future_tense_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
 
 nadj_errors = errors.ErrorAnalysis(wals_nadj, "Noun-Adjective")
 svo_errors = errors.ErrorAnalysis(wals_svo, "SVO")
 ov_errors = errors.ErrorAnalysis(wals_ov, "SV")
 sv_errors = errors.ErrorAnalysis(wals_sv, "OV")
+past_tense_errors = errors.ErrorAnalysis(wals_sv, "Past Tense")
+future_tense_errors = errors.ErrorAnalysis(wals_sv, "Future Tense")
 
 try:
     os.stat(data_dir)
@@ -73,6 +83,8 @@ do_nadj = False
 do_svo = False
 do_sv = False
 do_ov = False
+do_past_tense = False
+do_future_tense = False
 
 ##############################################################
 # get parser args and set up global variables
@@ -83,6 +95,8 @@ parser.add_argument('-s', '--svo', help="calculate subject-object-verb order", a
 parser.add_argument('-o', '--ov', help="calculate object-verb order", action="store_true")
 parser.add_argument('-v', '--sv', help="calculate subject-verb order", action="store_true")
 parser.add_argument('-a', '--all', help="calculate all orders", action="store_true")
+parser.add_argument('-p', '--past', help="analyze for past tense", action="store_true")
+parser.add_argument('-f', '--future', help="analyze for future tense", action="store_true")
 parser.add_argument('-i', '--minIinstances', type=int, default=6,
                     help="Instances Threshold:  Number of instances to require before accepting data")
 parser.add_argument('-d', '--ndo', type=float, default=0.25,
@@ -101,6 +115,12 @@ if args.sv or args.all:
 if args.ov or args.all:
     do_ov = True
     print("Determining Object-Verb Order")
+if args.past or args.all:
+    do_past_tense = True
+    print("Determining Past Tense Inclusion")
+if args.future or args.all:
+    do_future_tense = True
+    print("Determining Future Tense Inclusion")
 
 
 def examine_language(calc, feature_dictionary, feature_num_instances_dictionary, error_analyzer):
@@ -154,11 +174,15 @@ for language in odin_corpus:
     wals_svo_present = wals_svo.is_language_present(language_code)
     wals_sv_present = wals_sv.is_language_present(language_code)
     wals_ov_present = wals_ov.is_language_present(language_code)
+    wals_past_tense_present = wals_past_tense.is_language_present(language_code)
+    wals_future_tense_present = wals_future_tense.is_language_present(language_code)
     # check to see if we should bother loading the language
     if (wals_svo_present and do_svo) \
             or (wals_sv_present and do_sv) \
             or (wals_ov_present and do_ov) \
-            or (wals_nadj_present and do_nadj):
+            or (wals_nadj_present and do_nadj) \
+            or (wals_past_tense_present and do_past_tense) \
+            or (wals_future_tense_present and do_future_tense):
 
         xc = xigtxml.load(language, mode='full')
         if wals_nadj_present and do_nadj:
@@ -173,6 +197,14 @@ for language in odin_corpus:
         if wals_ov_present and do_ov:
             calc = OVProbe(xc, language_code, False, args.ndo)
             examine_language(calc, ov_feature_dictionary, ov_feature_num_instances_dictionary, ov_errors)
+        if wals_past_tense_present and do_past_tense:
+            calc = PastTenseProbe(xc, language_code, False, args.ndo)
+            examine_language(calc, past_tense_feature_dictionary, past_tense_feature_num_instances_dictionary,
+                             past_tense_errors)
+        if wals_future_tense_present and do_future_tense:
+            calc = FutureTenseProbe(xc, language_code, False, args.ndo)
+            examine_language(calc, future_tense_feature_dictionary, future_tense_feature_num_instances_dictionary,
+                             future_tense_errors)
 
             # DEBUG
             # if len(nadj_errors.incorrect_iso_ids) > 1:
@@ -192,3 +224,11 @@ if do_sv:
 
 if do_ov:
     final_report(ov_feature_dictionary, wals_ov, ov_feature_num_instances_dictionary, ov_possibilities, ov_errors, "OV")
+
+if do_past_tense:
+    final_report(past_tense_feature_dictionary, wals_past_tense, past_tense_feature_num_instances_dictionary,
+                 past_tense_possibilities, past_tense_errors, "Past Tense")
+
+if do_future_tense:
+    final_report(future_tense_feature_dictionary, wals_future_tense, future_tense_feature_num_instances_dictionary,
+                 future_tense_possibilities, future_tense_errors, "Future Tense")
