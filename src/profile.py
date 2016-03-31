@@ -65,9 +65,9 @@ i = 0
 svo_possibilities = ["SOV", "SVO", "VSO", "VOS", "OVS", "OSV", "ndo"]  # ndo is "no dominant order"
 sv_possibilities = ["SV", "VS", "ndo"]  # ndo is "no dominant order"
 ov_possibilities = ["OV", "VO", "ndo"]  # ndo is "no dominant order"
-nadj_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
-past_tense_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
-future_tense_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo", "other"]
+nadj_possibilities = ["Noun-Adjective", "Adjective-Noun", "ndo"]
+past_tense_possibilities = ["marked", "unmarked", "ndo"]
+future_tense_possibilities = ["marked", "unmarked", "ndo"]
 
 nadj_errors = errors.ErrorAnalysis(wals_nadj, "Noun-Adjective")
 svo_errors = errors.ErrorAnalysis(wals_svo, "SVO")
