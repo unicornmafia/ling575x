@@ -19,7 +19,7 @@ from ov import OVProbe
 from past import PastTenseProbe
 from future import FutureTenseProbe
 from nadj import NounAdjectiveProbe
-from wals import WalsFeature, WalsLanguageCodes
+from wals import WalsFeature, WalsLanguageCodes, WalsFeatureTranslatedValues
 from reporting import Reporting
 import glob
 import os
@@ -41,8 +41,17 @@ wals_svo = WalsFeature(os.path.join(wals_path, "wals-dataset"), "81A", wals_dict
 wals_sv = WalsFeature(os.path.join(wals_path, "wals-dataset"), "82A", wals_dictionary)
 wals_ov = WalsFeature(os.path.join(wals_path, "wals-dataset"), "83A", wals_dictionary)
 wals_nadj = WalsFeature(os.path.join(wals_path, "wals-dataset"), "87A", wals_dictionary)
-wals_past_tense = WalsFeature(os.path.join(wals_path, "wals-dataset"), "66A", wals_dictionary)
-wals_future_tense = WalsFeature(os.path.join(wals_path, "wals-dataset"), "67A", wals_dictionary)
+wals_translation_map_past = {"Present, 2-3 remoteness distinctions": "marked",
+                             "Present, no remoteness distinctions": "marked",
+                             "Present, 4 or more remoteness distinctions": "marked",
+                             "No past tense": "unmarked"}
+wals_translation_map_future = {"Inflectional future exists": "marked",
+                               "No inflectional future": "unmarked"}
+
+wals_past_tense = WalsFeatureTranslatedValues(os.path.join(wals_path, "wals-dataset"),
+                                              "66A", wals_dictionary, wals_translation_map_past)
+wals_future_tense = WalsFeatureTranslatedValues(os.path.join(wals_path, "wals-dataset"),
+                                                "67A", wals_dictionary, wals_translation_map_future)
 
 # some globals
 svo_feature_dictionary = {}

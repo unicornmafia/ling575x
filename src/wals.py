@@ -13,6 +13,7 @@ __author__ = 'thomas'
 #
 ##############################################################################
 import os
+from csv import reader
 
 
 #
@@ -34,11 +35,11 @@ class WalsFeature:
     def load_dictionary(self):
         filename = os.path.join(self.path, "wals-" + self.feature_id + ".csv")
         first_line = True
-        for line in open(filename, 'r'):
+        file = open(filename, 'r')
+        for entries in reader(file):
             if first_line:
                 first_line = False
                 continue
-            entries = line.split(",")
             language_id = entries[0][4:]
             feature_value = entries[4]
             if feature_value == "No dominant order":
@@ -58,6 +59,21 @@ class WalsFeature:
             return False
         else:
             return True
+
+
+class WalsFeatureTranslatedValues(WalsFeature):
+    def __init__(self, path, feature_id, wals_dictionary, translation_map):
+        super(WalsFeatureTranslatedValues, self).__init__(path,
+                                                          feature_id,
+                                                          wals_dictionary)
+        self.translation_map = translation_map
+
+    def get_value_from_iso_language_id(self, iso_id):
+        try:
+            wals_value = super(WalsFeatureTranslatedValues, self).get_value_from_iso_language_id(iso_id)
+            return self.translation_map[wals_value]
+        except KeyError:
+            return "No Match"
 
 
 #
