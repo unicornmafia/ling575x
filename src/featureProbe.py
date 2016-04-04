@@ -103,7 +103,7 @@ class FeatureProbe:
     # parameters:
     #   corpus: a single, parsed, XIGT language file
     #
-    def estimate_word_order_for_each_instance(self):
+    def estimate_most_probable_feature_value(self):
         for igt in self.corpus:
             self.determine_feature_value_for_instance(igt)
 

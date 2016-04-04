@@ -82,8 +82,8 @@ nadj_errors = errors.ErrorAnalysis(wals_nadj, "Noun-Adjective")
 svo_errors = errors.ErrorAnalysis(wals_svo, "SVO")
 ov_errors = errors.ErrorAnalysis(wals_ov, "SV")
 sv_errors = errors.ErrorAnalysis(wals_sv, "OV")
-past_tense_errors = errors.ErrorAnalysis(wals_sv, "Past Tense")
-future_tense_errors = errors.ErrorAnalysis(wals_sv, "Future Tense")
+past_tense_errors = errors.ErrorAnalysis(wals_past_tense, "Past Tense")
+future_tense_errors = errors.ErrorAnalysis(wals_future_tense, "Future Tense")
 
 try:
     os.stat(data_dir)
@@ -135,7 +135,7 @@ if args.future or args.all:
 
 
 def examine_language(calc, feature_dictionary, feature_num_instances_dictionary, error_analyzer):
-    calc.estimate_word_order_for_each_instance()
+    calc.estimate_most_probable_feature_value()
     if calc.best_guess != "unk":
         feature_dictionary[language_code] = calc.best_guess
         feature_num_instances_dictionary[language_code] = calc.instance_count

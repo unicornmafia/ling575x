@@ -33,6 +33,17 @@ class PastTenseProbe(FeatureProbe):
                                              "Past Tense",
                                              debug,
                                              ndo_threshold)
+        self.marked_threshold = 0.1
+
+    #
+    # past tense is a binary marked/unmarked feature.  find if it is present
+    #
+    def generate_best_guess(self):
+        if self.order_counts["marked"] > self.marked_threshold:
+            self.best_guess = "marked"
+        else:
+            self.best_guess = "unmarked"
+        return self.best_guess
 
     #
     # determine_feature_value_for_instance(): estimates word order for a single instance
@@ -54,3 +65,5 @@ class PastTenseProbe(FeatureProbe):
             self.instance_count += 1
             self.order_counts["unmarked"] += 1.0
 
+    def print_order_estimates(self):
+        print("Best Guess: %s\n" % self.best_guess)
